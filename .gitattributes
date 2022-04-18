@@ -46,4 +46,4 @@
 *.reason filter=lfs diff=lfs merge=lfs -text
 *.lxo filter=lfs diff=lfs merge=lfs -text
 D:/Tugas/Kuliah/Skripsi/Math-Diary/MathDiary/Library/ArtifactDB filter=lfs diff=lfs merge=lfs -text
-D:/Tugas/Kuliah/Skripsi/Math-Diary/Skripsi/Assets/Firebase/Plugins/x86_64/FirebaseCppDatabase.so filter=lfs diff=lfs merge=lfs -text
+D:/Tugas/Kuliah/Skripsi/Math-Diary/MathDiary/Assets/Firebase/Plugins/x86_64/FirebaseCppApp-8_8_0.so filter=lfs diff=lfs merge=lfs -text
