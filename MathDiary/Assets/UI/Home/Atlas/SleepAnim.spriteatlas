@@ -1,0 +1,53 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: SleepAnim
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings: []
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 0
+      enableTightPacking: 0
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 102900000, guid: 8f243968bf686274694eee1668cf3491, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: 6cb10150d25f54e429ffa6200b3a84ef, type: 3}
+  - {fileID: 21300000, guid: 9fd7a15641d77924682103389a7d9b70, type: 3}
+  - {fileID: 21300000, guid: 978244588be19434188554c814139d33, type: 3}
+  - {fileID: 21300000, guid: 1f2a1859c0fdfc242839003a48a94390, type: 3}
+  - {fileID: 21300000, guid: 4cc1ad79bcf9f0449850c38012ba4309, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - char_anim_2
+  - char_anim_4
+  - char_anim_5
+  - char_anim_1
+  - char_anim_3
+  m_RenderDataMap: {}
+  m_Tag: SleepAnim
+  m_IsVariant: 0

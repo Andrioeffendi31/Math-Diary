@@ -1,0 +1,85 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: LoginUIAtlas
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings:
+    - serializedVersion: 3
+      m_BuildTarget: DefaultTexturePlatform
+      m_MaxTextureSize: 2048
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: -1
+      m_TextureCompression: 1
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 1
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 0
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 0
+      enableTightPacking: 0
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 102900000, guid: 5f2565a0e74e08a40b5b838456b408d3, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: acea0d9025898a3408276b6266c0bcfb, type: 3}
+  - {fileID: 21300000, guid: 6968b34118beca148bdf91e16af3c1f9, type: 3}
+  - {fileID: 21300000, guid: 594ec2527e14ae149826b72d31fb0217, type: 3}
+  - {fileID: 21300000, guid: a4a6ec923c6726242aabba0fd30e9909, type: 3}
+  - {fileID: 21300000, guid: febad65356729e34da0dd6a6ea1113a8, type: 3}
+  - {fileID: 21300000, guid: bbfe2ad6b81cb914db9764b0fc5835cc, type: 3}
+  - {fileID: 21300000, guid: 83be8ad6f11b9b145a300508e209fee7, type: 3}
+  - {fileID: 21300000, guid: 2ca00648cafd62e46968203fb2b97206, type: 3}
+  - {fileID: 21300000, guid: f0fb4b6816a19cd40aeab411bcdb63f3, type: 3}
+  - {fileID: 21300000, guid: 61fdf0299cf5ec8489294bf375038a0b, type: 3}
+  - {fileID: 21300000, guid: cabb38d9c7fd759489a3b7f16012a221, type: 3}
+  - {fileID: 21300000, guid: 07602ae9c9bdcd14c95b582eac478263, type: 3}
+  - {fileID: 21300000, guid: 0fccaf8a3d86c9c4dbbbc72272ecbc27, type: 3}
+  - {fileID: 21300000, guid: 65ef02bdfb7fa9f4dad532ef6d04dcdb, type: 3}
+  - {fileID: 21300000, guid: 3981310e76d5f224f8e0f7ffbfb511c5, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - particle-07
+  - Login_Card
+  - white_btn_large
+  - Game_Logo
+  - version_btn
+  - text_field_BG
+  - white_btn_mid
+  - pattern
+  - red_btn_large
+  - red_btn_small
+  - red_btn_mid
+  - Login_BG
+  - popup_card
+  - google_logo
+  - transition
+  m_RenderDataMap: {}
+  m_Tag: LoginUIAtlas
+  m_IsVariant: 0

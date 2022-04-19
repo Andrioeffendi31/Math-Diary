@@ -1,0 +1,55 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: HomeUIAtlas
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings: []
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 0
+      enableTightPacking: 0
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 102900000, guid: 919bb49115b0d2445b62689e75a67bdc, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: 4475de0213b1a584e9ca5dc813a13795, type: 3}
+  - {fileID: 21300000, guid: 7d553c35011b58045a54465a7139c434, type: 3}
+  - {fileID: 21300000, guid: 60d43195e9cf33146abe38809731f147, type: 3}
+  - {fileID: 21300000, guid: 8c19f147c237af64e8b0336a19022099, type: 3}
+  - {fileID: 21300000, guid: 03dd5f2e6bab2ce44b3f9ebc6c0b1520, type: 3}
+  - {fileID: 21300000, guid: 07f71a0f93f7b4448b8fd5a11604442f, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - pencil-04
+  - HomeBG-04
+  - lamp-04
+  - books-04
+  - table-04
+  - chair-04
+  m_RenderDataMap: {}
+  m_Tag: HomeUIAtlas
+  m_IsVariant: 0

@@ -1,0 +1,121 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: DissolveMatHair
+  m_Shader: {fileID: 4800000, guid: c4f99a188199e304bbb262433bcc242f, type: 3}
+  m_ShaderKeywords: PIXELSNAP_ON _USEDEPTH_ON _USETEXTURECOLOR_ON _USETEXTUREDISSOLVE_ON
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 1
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - Texture2D_2c3478cbef3644888402f976190f7f23:
+        m_Texture: {fileID: 2800000, guid: 39eadda1ee34f1748b4026bcc5bd0b80, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _AlphaTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BumpMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DissolveTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Dissolvenoise:
+        m_Texture: {fileID: 2800000, guid: 3f1d4fadb37c37e4488860109d7dce4b, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: 146fa2aa58d2f314e8c7035437dfeb01, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MaskTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NoiseTex:
+        m_Texture: {fileID: 2800000, guid: 3f1d4fadb37c37e4488860109d7dce4b, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 1, y: 1}
+    - _NormalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _TextureNoise:
+        m_Texture: {fileID: 2800000, guid: 24d73a0978aa8264d8d2eafb48f370bb, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _texcoord:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - PixelSnap: 1
+    - Vector1_2c2b333d9d0f4a5bbce450d7e13e958b: 30
+    - Vector1_4e6b2f58c54a404c81a4ed15b056382e: 0
+    - Vector1_833b5d8121f640939bb5804324eda179: 0.5
+    - _DissolveAmount: 0.5
+    - _DissolveLine: 0.1
+    - _DissolveScale: 1
+    - _Edges: 0.105
+    - _EnableExternalAlpha: 0
+    - _InvFade: 3
+    - _Level: 0
+    - _NormalStrength: 1
+    - _Opacity: 0.874
+    - _RimPower: 0.1
+    - _RimSmooth: 1
+    - _ShadowSmooth: 0.6
+    - _Thresh: 1
+    - _Usedepth: 1
+    - _Usetexturecolor: 1
+    - _Usetexturedissolve: 1
+    m_Colors:
+    - Color_17e9e47eb88f4937a7693a3b435d368a: {r: 220.26176, g: 178.74646, b: 0, a: 1}
+    - Color_2ec02493c19645c6a64f24b1376a1d47: {r: 1, g: 1, b: 1, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _DissolveLineColor: {r: 1, g: 1, b: 1, a: 1}
+    - _Dissolvecolor: {r: 1, g: 1, b: 1, a: 1}
+    - _DissolvespeedXY: {r: 0, g: 0, b: 0, a: 0}
+    - _EdgeColour1: {r: 1, g: 0.59607846, b: 0, a: 1}
+    - _EdgeColour2: {r: 1, g: 1, b: 1, a: 1}
+    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _Flip: {r: 1, g: 1, b: 1, a: 1}
+    - _Maincolor: {r: 1, g: 1, b: 1, a: 1}
+    - _Noisecolor: {r: 0.2470588, g: 0.3012382, b: 0.3607843, a: 0}
+    - _NoisespeedXYEmissonZPowerW: {r: 0.5, g: 0, b: 2, a: 1}
+    - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
+    - _RimColor: {r: 1, g: 1, b: 1, a: 1}
+    - _ShadowColor: {r: 0, g: 0, b: 0, a: 1}
+    - _TintColor: {r: 1, g: 0.20553625, b: 0, a: 1}
+  m_BuildTextureStacks: []

@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:keep="@string/firebase_database_url,@string/gcm_defaultSenderId,@string/google_storage_bucket,@string/project_id,@string/google_api_key,@string/google_crash_reporting_api_key,@string/google_app_id,@string/default_web_client_id">
+  <string name="firebase_database_url" translatable="false">https://mathdiary-d169a-default-rtdb.asia-southeast1.firebasedatabase.app</string>
+  <string name="gcm_defaultSenderId" translatable="false">625517264892</string>
+  <string name="google_storage_bucket" translatable="false">mathdiary-d169a.appspot.com</string>
+  <string name="project_id" translatable="false">mathdiary-d169a</string>
+  <string name="google_api_key" translatable="false">AIzaSyBqSjLeiXJrXpHNCDvmZZPdRZT4b7a-uoo</string>
+  <string name="google_crash_reporting_api_key" translatable="false">AIzaSyBqSjLeiXJrXpHNCDvmZZPdRZT4b7a-uoo</string>
+  <string name="google_app_id" translatable="false">1:625517264892:android:8800cd5561b72f8484bc79</string>
+  <string name="default_web_client_id" translatable="false">625517264892-jb7949sfgdqmktdol63pnefddbo2famh.apps.googleusercontent.com</string>
+</resources>

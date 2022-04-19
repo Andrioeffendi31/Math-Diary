@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "625517264892",
+    "firebase_url": "https://mathdiary-d169a-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "mathdiary-d169a",
+    "storage_bucket": "mathdiary-d169a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:625517264892:android:8800cd5561b72f8484bc79",
+        "android_client_info": {
+          "package_name": "com.Inersea.MathDiary"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "625517264892-jb7949sfgdqmktdol63pnefddbo2famh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBqSjLeiXJrXpHNCDvmZZPdRZT4b7a-uoo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "625517264892-jb7949sfgdqmktdol63pnefddbo2famh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

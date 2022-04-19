@@ -1,0 +1,75 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: ResultUI
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings: []
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 0
+      enableTightPacking: 0
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 102900000, guid: 61541816086f0b54d8c63c44ea3a00ad, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: 0ad3c160a8d1012409bb4baebc6512d4, type: 3}
+  - {fileID: 21300000, guid: d5b6b3a058b020a479391e36cbf6c6af, type: 3}
+  - {fileID: 21300000, guid: d11caf52d81408744b7a724bac59c027, type: 3}
+  - {fileID: 21300000, guid: fc58b282e792ad9408dd56ee8cc1e34f, type: 3}
+  - {fileID: 21300000, guid: b009dcc3b131d434fb71acea9344ab51, type: 3}
+  - {fileID: 21300000, guid: 1b7d0e050b348074cbddfbd0b36fd1d3, type: 3}
+  - {fileID: 21300000, guid: b49abc0820647764eacf951dc08e666c, type: 3}
+  - {fileID: 21300000, guid: 94658e48bdc18ed4da1341f72496c9c4, type: 3}
+  - {fileID: 21300000, guid: 7b8c6f890bc90ae419ac7f7ed519940a, type: 3}
+  - {fileID: 21300000, guid: 928850a968942254098c89d793636460, type: 3}
+  - {fileID: 21300000, guid: 8244253b3cee2f848b8df3609e482916, type: 3}
+  - {fileID: 21300000, guid: 8eedc48ddecc4304899c0a107df77e4d, type: 3}
+  - {fileID: 21300000, guid: 3f0ac9cd2b586f6498037523e704310b, type: 3}
+  - {fileID: 21300000, guid: cccb979eae5d4f0419e9e1c5c95e3e4a, type: 3}
+  - {fileID: 21300000, guid: 2407f3ee53432a643a7bd8fed7617c65, type: 3}
+  - {fileID: 21300000, guid: 17e1ad0f6fdda2f4e8c384ff540314d0, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - Container1
+  - GreenBtn
+  - XPBarBorder
+  - BlueBtn
+  - RadialSlider3
+  - RadialSlider4
+  - YellowBtn
+  - LessonCompletedText
+  - Container3
+  - Container4
+  - RoundedTransparentRect
+  - RadialSlider2
+  - GoldIcon
+  - RadialSlider1
+  - XPBarMask
+  - Container2
+  m_RenderDataMap: {}
+  m_Tag: ResultUI
+  m_IsVariant: 0

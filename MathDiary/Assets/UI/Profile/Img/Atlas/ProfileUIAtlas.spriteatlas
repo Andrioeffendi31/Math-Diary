@@ -1,0 +1,121 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: ProfileUIAtlas
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings:
+    - serializedVersion: 3
+      m_BuildTarget: DefaultTexturePlatform
+      m_MaxTextureSize: 2048
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: -1
+      m_TextureCompression: 1
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 1
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 0
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 0
+      enableTightPacking: 0
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 102900000, guid: 6bdf99377755ff941ad934faf697024a, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: df1998403b881a5469a86de5d09f1da8, type: 3}
+  - {fileID: 21300000, guid: a25b5e40ca155bc45bcc2ec3f0bae163, type: 3}
+  - {fileID: 21300000, guid: 124169d055d921a4e85088633da91c40, type: 3}
+  - {fileID: 21300000, guid: de33479151b357c4583a1c3d5511f435, type: 3}
+  - {fileID: 21300000, guid: f08240c11e7d57443a448833fd6d96fb, type: 3}
+  - {fileID: 21300000, guid: 4436d082084c5eb4aa77a5b6a0911e96, type: 3}
+  - {fileID: 21300000, guid: a87b2a03ff0398f4fae50c5ab297cc3e, type: 3}
+  - {fileID: 21300000, guid: 1a54724355029fa4aaf5936787e5db0d, type: 3}
+  - {fileID: 21300000, guid: 4ce0f9f3b97cdbb498c461192eff4c8f, type: 3}
+  - {fileID: 21300000, guid: 1cdf42c48b314de45bca81cfb3ef14cc, type: 3}
+  - {fileID: 21300000, guid: 87c0f0153d291924a8b2a9b617aebe14, type: 3}
+  - {fileID: 21300000, guid: d6689176f94ca604e862ccfe66ad9a94, type: 3}
+  - {fileID: 21300000, guid: af94847616f35fa4b80f263d37e90b28, type: 3}
+  - {fileID: 21300000, guid: 71765ed6f20635f48bd98b5f6d66e101, type: 3}
+  - {fileID: 21300000, guid: 4c3172b7437fd58448fc8e345abddbad, type: 3}
+  - {fileID: 21300000, guid: e51eaec75717740468e6de8aaf8d8870, type: 3}
+  - {fileID: 21300000, guid: 11c45b083d42c254f93a35d6060c792a, type: 3}
+  - {fileID: 21300000, guid: d310aca8e31405945b7b48b99d3752ff, type: 3}
+  - {fileID: 21300000, guid: c04791d8d733f754d887be56d4b3a24d, type: 3}
+  - {fileID: 21300000, guid: 7996b0e89849a9444aaeab8b9ed51c1f, type: 3}
+  - {fileID: 21300000, guid: 18a6c5e8ec532e147ad85d2a64cda07a, type: 3}
+  - {fileID: 21300000, guid: c4228e4abc39a6c428a69cf127f09cf0, type: 3}
+  - {fileID: 21300000, guid: 08180a9a9b3f9b643a6e50fa6d09dadd, type: 3}
+  - {fileID: 21300000, guid: 7fe171ca984296d4084768c6aa08bf7b, type: 3}
+  - {fileID: 21300000, guid: 67d5e8ea9d856454a979d78a61436182, type: 3}
+  - {fileID: 21300000, guid: 4b2ef05ba30aa754ea6623011779bb0c, type: 3}
+  - {fileID: 21300000, guid: b397c8db92aff6844bf7c8c5bbbaf324, type: 3}
+  - {fileID: 21300000, guid: ea50fb0d8edd6f34b822c8c5f95be95e, type: 3}
+  - {fileID: 21300000, guid: 57d900ed8c92e9941a95160c3436a421, type: 3}
+  - {fileID: 21300000, guid: 7b9fba0eeb58ad24bb31901df96280e3, type: 3}
+  - {fileID: 21300000, guid: 3588f97e9047c2247baee7b11413d1b0, type: 3}
+  - {fileID: 21300000, guid: c6f7f6bef83cac04486410b54dfd17fb, type: 3}
+  - {fileID: 21300000, guid: c238eb4f2bcd60c41921a29f2937ad1a, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - LPAchievement_5
+  - AvatarAchievement_2
+  - KumaThePlatoElite
+  - KumaThePlato[Common]
+  - LPAchievement_2
+  - RankAchievement_1
+  - LPAchievement_4
+  - TitleBG-05
+  - LevelAchievement_5
+  - LevelAchievement_10
+  - LevelAchievement_1
+  - twinkle
+  - LPAchievement_3
+  - AchievementBtn-05
+  - LevelAchievement_4
+  - LPAchievement_6
+  - KumaThePlatoCommon
+  - KumaTheWarrior[Common]
+  - LevelAchievement_2
+  - KumaTheWarrior[Elite]
+  - LPAchievement_1
+  - RankAchievement_2
+  - ChangeAvatarBtn
+  - RankAchievement_3
+  - LevelAchievement_3
+  - KumaTheWarriorElite
+  - AvatarAchievement_3
+  - AchievementBG-05
+  - AvatarListPopUp
+  - KumaThePlato[Elite]
+  - KumaTheWarriorCommon
+  - ring
+  - AvatarAchievement_1
+  m_RenderDataMap: {}
+  m_Tag: ProfileUIAtlas
+  m_IsVariant: 0

@@ -1,0 +1,77 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: NavbarAtlas
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings:
+    - serializedVersion: 3
+      m_BuildTarget: DefaultTexturePlatform
+      m_MaxTextureSize: 2048
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: -1
+      m_TextureCompression: 1
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 1
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 0
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 0
+      enableTightPacking: 0
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 102900000, guid: 31c392e71233fcd47bd251ef248bafca, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: 72f56982cd02de84486c2abd45ee45b0, type: 3}
+  - {fileID: 21300000, guid: 21146be2cfd7fe448bc2494551362d7f, type: 3}
+  - {fileID: 21300000, guid: 6c6647f6f91f5894baf82e607116cb83, type: 3}
+  - {fileID: 21300000, guid: 23b19d1708c226d479f00809b9fd9046, type: 3}
+  - {fileID: 21300000, guid: a2ceef98db382704a885bde8411c5dd9, type: 3}
+  - {fileID: 21300000, guid: 98a3c619d766af44cb9c0d3916fdea69, type: 3}
+  - {fileID: 21300000, guid: 5a6bf0a9ee700684e9fc8bc00743d73b, type: 3}
+  - {fileID: 21300000, guid: e3990c2a43313de4785422424fab1ff5, type: 3}
+  - {fileID: 21300000, guid: 7bdfcf3a2dc524b4a8f0fca16e79e7eb, type: 3}
+  - {fileID: 21300000, guid: e0ccd70c502c8d3489df16f9ab17f1be, type: 3}
+  - {fileID: 21300000, guid: a81383dc0c92c304f91fe3ce3aad30b0, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - home_btn_1
+  - lessons_btn_1
+  - profile_btn_1
+  - rank_btn_1
+  - profile_btn_2
+  - home_btn_2
+  - rank_btn_2
+  - lessons_btn_2
+  - shop_btn_2
+  - BG_navbar
+  - shop_btn_1
+  m_RenderDataMap: {}
+  m_Tag: NavbarAtlas
+  m_IsVariant: 0

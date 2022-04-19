@@ -1,0 +1,99 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: BattleUI
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings:
+    - serializedVersion: 3
+      m_BuildTarget: DefaultTexturePlatform
+      m_MaxTextureSize: 2048
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: -1
+      m_TextureCompression: 1
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 1
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 0
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 0
+      enableTightPacking: 0
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 102900000, guid: 40ed9bf8c84560740b323246d68d6f71, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: 24785f50e509287428bc8d7687aa5990, type: 3}
+  - {fileID: 21300000, guid: b892e9f1adccbf8429da9944cb7765d3, type: 3}
+  - {fileID: 21300000, guid: 8d13d4d3fc984244588e572a2f1fc842, type: 3}
+  - {fileID: 21300000, guid: 248d581466e66e24caf932418d0186c2, type: 3}
+  - {fileID: 21300000, guid: c9382d24002e13c4384d1fbb48c62caf, type: 3}
+  - {fileID: 21300000, guid: be1d8af423f763a42929f6e4cf94803a, type: 3}
+  - {fileID: 21300000, guid: 33cddf15e3cf97941ad0c646930a5c3b, type: 3}
+  - {fileID: 21300000, guid: 0c6f7345e9835ad4eb6b659d768affd8, type: 3}
+  - {fileID: 21300000, guid: 331d6cf5a0937de428db5a4a67464729, type: 3}
+  - {fileID: 21300000, guid: c48bdfb76c046e446b9ecf885fb8ce75, type: 3}
+  - {fileID: 21300000, guid: 4f323a689b00f1141861493b39c9bd3f, type: 3}
+  - {fileID: 21300000, guid: bc6bf8e85f4d699449efb7ad6fff0955, type: 3}
+  - {fileID: 21300000, guid: 49629b49501f9c94a9b07b75c3ddb8c2, type: 3}
+  - {fileID: 21300000, guid: 5b04a4aa8d44aad4096367208ce69aab, type: 3}
+  - {fileID: 21300000, guid: ac20b54b8d6a53442b39bd63e884e6ad, type: 3}
+  - {fileID: 21300000, guid: fdb32b0c61574cc438316962daaf2f43, type: 3}
+  - {fileID: 21300000, guid: fca4ef7d6bda1814ca5342d7c19eb798, type: 3}
+  - {fileID: 21300000, guid: f08a243ef77f0bf48814d6e1762a0f7a, type: 3}
+  - {fileID: 21300000, guid: e42f0e7ea01233f47ae80718832fe995, type: 3}
+  - {fileID: 21300000, guid: 0fb20afe3b9cb1647a13f01a1f587132, type: 3}
+  - {fileID: 21300000, guid: c8f8e28f6d7ca804ba1f109d6f61b8e2, type: 3}
+  - {fileID: 21300000, guid: dffdc4bf49ed1b64bba9c5efc23acbc3, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - UserPhoto
+  - HP_bar_BG
+  - AnswerBox
+  - NormalAttackBtn
+  - UserStatBG
+  - XP_bar_BG
+  - EnemyHealthBarBorder
+  - UltimateBtnIcon
+  - QuestionBox
+  - EnemyHealthBarMask
+  - UltimateBtn
+  - HP_bar_fill
+  - TimerBarFill
+  - SkipTurnBtn
+  - RoundedTransparentBox
+  - TimerIcon
+  - XP_bar_fill
+  - TimerBarFillMask
+  - QuitMatchBtn
+  - ActionChoiceBG
+  - TimerBarBG
+  - userLevel-10
+  m_RenderDataMap: {}
+  m_Tag: BattleUI
+  m_IsVariant: 0

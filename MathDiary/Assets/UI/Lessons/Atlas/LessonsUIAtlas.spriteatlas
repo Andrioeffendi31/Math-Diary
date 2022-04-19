@@ -1,0 +1,165 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: LessonsUIAtlas
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings:
+    - serializedVersion: 3
+      m_BuildTarget: DefaultTexturePlatform
+      m_MaxTextureSize: 2048
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: -1
+      m_TextureCompression: 1
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 1
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 0
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 0
+      enableTightPacking: 0
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 102900000, guid: 9f06bbe8087451140b06a9471efb35f3, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: 9503614016ef7d144b9d7f9f68f78323, type: 3}
+  - {fileID: 21300000, guid: b850b270e0665f64abfb4491b8993bfd, type: 3}
+  - {fileID: 21300000, guid: 997e0d706ac15134288289dbcc782e8b, type: 3}
+  - {fileID: 21300000, guid: 5b463941dfb0bd7488db0acd5d2ac477, type: 3}
+  - {fileID: 21300000, guid: 5c9b93a1ff2026d4298027bb25956464, type: 3}
+  - {fileID: 21300000, guid: 403e0742ea1442044b9d4c1a04dcb0e0, type: 3}
+  - {fileID: 21300000, guid: 6267a462771ae7f41b7e3cf539482f9b, type: 3}
+  - {fileID: 21300000, guid: e5f97c729b48ef147a95cbe8f5726e82, type: 3}
+  - {fileID: 21300000, guid: 9b2c55923bbb31d499b52f2dfcc3ad31, type: 3}
+  - {fileID: 21300000, guid: b9e41fd25af02c744afec4fe516c442f, type: 3}
+  - {fileID: 21300000, guid: 0354c9e2c4fd83640a4fa7bb7ee0b5fe, type: 3}
+  - {fileID: 21300000, guid: fb7bcbf2df74bd64d899fa669389daaf, type: 3}
+  - {fileID: 21300000, guid: 91d21ef285410364ebc364d961ac2414, type: 3}
+  - {fileID: 21300000, guid: d70d6ff272586f54e87987e3afe856f1, type: 3}
+  - {fileID: 21300000, guid: 012a1c13b53238040b7558f91164ff8b, type: 3}
+  - {fileID: 21300000, guid: a0b5ce33449cf5e40adbe57b343440ce, type: 3}
+  - {fileID: 21300000, guid: 748297b3b8fa27340b252020f7ba29f4, type: 3}
+  - {fileID: 21300000, guid: 969488e3feaa88f4c90be45e5f042acb, type: 3}
+  - {fileID: 21300000, guid: ea4070544d3f1d04dac53cab56c02754, type: 3}
+  - {fileID: 21300000, guid: 881ac6a42b46a634ab8e7028c848750d, type: 3}
+  - {fileID: 21300000, guid: a558b3f4d784af84d8e86803be995429, type: 3}
+  - {fileID: 21300000, guid: ddfcc705d7a7e3a4dba0fe81b7de6a77, type: 3}
+  - {fileID: 21300000, guid: b8e1ad55f16cacd46aa6bb9acb447ae8, type: 3}
+  - {fileID: 21300000, guid: 3480cd756d0523c479f135993a9b0c80, type: 3}
+  - {fileID: 21300000, guid: 55b835c6047ee8f44b6329e1095791f1, type: 3}
+  - {fileID: 21300000, guid: 2bd9ac0709a10494db6bb85914c5eb81, type: 3}
+  - {fileID: 21300000, guid: 0569f937ea59488439d03efd0af49ae0, type: 3}
+  - {fileID: 21300000, guid: 7cac8d37473b17644b32da5c3ad7b2e5, type: 3}
+  - {fileID: 21300000, guid: bef6e88737a485047be81035a37c454f, type: 3}
+  - {fileID: 21300000, guid: 64ecf9f740798c0448f5e6c1ba39c638, type: 3}
+  - {fileID: 21300000, guid: af17a928d95ca904bb9be0eb8415e6ac, type: 3}
+  - {fileID: 21300000, guid: 03ea536800267af499e9e6a17d77dc5c, type: 3}
+  - {fileID: 21300000, guid: 1a56b13917348734fb90e82921fb8ae0, type: 3}
+  - {fileID: 21300000, guid: dfab94b9a5a0bde46ade1f7922673a6c, type: 3}
+  - {fileID: 21300000, guid: 129790ca33611c849996a9a6c33522f7, type: 3}
+  - {fileID: 21300000, guid: 7b1c0e4b1abb762429af8db84e0e7d19, type: 3}
+  - {fileID: 21300000, guid: ad3e7fbbb0d5d2b4e82ffe2da8a2d6c2, type: 3}
+  - {fileID: 21300000, guid: ffcbd0cb36a684b48be194f3f18144a6, type: 3}
+  - {fileID: 21300000, guid: 3508fedbff0988244840ba9ba2c772cb, type: 3}
+  - {fileID: 21300000, guid: a997354cc8f78a641ae517f43ca97ae1, type: 3}
+  - {fileID: 21300000, guid: cfbcb78c6fec5004eb015bc3a12e2680, type: 3}
+  - {fileID: 21300000, guid: 095e02fc5dea80341b4a4656dc6021b0, type: 3}
+  - {fileID: 21300000, guid: 756f280d3d6ee3d4cbb297c1ba278f65, type: 3}
+  - {fileID: 21300000, guid: df30ff0de9b9893409b1a8bfbe365af9, type: 3}
+  - {fileID: 21300000, guid: fcd5287d5833ddd4aa5940a7d6168d6b, type: 3}
+  - {fileID: 21300000, guid: 1c08ec7d4ba4512498b16c3695b76f8d, type: 3}
+  - {fileID: 21300000, guid: cc422ddde2387024b997604d917a368f, type: 3}
+  - {fileID: 21300000, guid: 5b74054ed5a0d1044a25cc2a80b4190a, type: 3}
+  - {fileID: 21300000, guid: ee67c60f8f3c8d84393a095f162dcd8c, type: 3}
+  - {fileID: 21300000, guid: 3495022f3314ea643944ecb0ada1e654, type: 3}
+  - {fileID: 21300000, guid: 6b09892fdccb86d4dbc172916f93a7df, type: 3}
+  - {fileID: 21300000, guid: 2a3b005f9644d8b44be44291e0893d9c, type: 3}
+  - {fileID: 21300000, guid: 145ce76f7320e5d42930858af38ebf24, type: 3}
+  - {fileID: 21300000, guid: e56b91bfac1b1234f95e7083ddf53399, type: 3}
+  - {fileID: 21300000, guid: 0f8b78ff41bad034db17613a26afb5b7, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - persegi
+  - NextIcon
+  - Details_2
+  - Details_1
+  - JaringLimas_2
+  - LessonsPattern
+  - Details_5
+  - jajarGenjang
+  - Details_4
+  - Details_4
+  - JaringPrisma_2
+  - Details_2
+  - Details_1
+  - LessonsBG
+  - belahKetupat
+  - TitleBG
+  - JaringLimas_3
+  - trapesium
+  - JaringLimas_1
+  - CloseIcon
+  - JaringTabung-08
+  - persegiPanjang
+  - JaringKubus_2
+  - JaringTabung-07
+  - TransparentGradient
+  - TitleBG-07
+  - lingkarang
+  - JaringKerucut_2
+  - Details_3
+  - Details_2
+  - JaringKubus_3
+  - Details_9
+  - ContentBG
+  - JaringBalok_2
+  - layangLayang
+  - Details_3
+  - Details_6
+  - ScreenTitle
+  - TwoDimentionalBtn
+  - IdeaIcon
+  - Details_5
+  - JaringKerucut_1
+  - Details_3
+  - Details_8
+  - Details_1
+  - JaringBalok_3
+  - ThreeDimentionalBtn
+  - JaringKubus_1
+  - Details_7
+  - FractionalBtn
+  - JaringPrisma_1
+  - JaringBalok_1
+  - TitleBG
+  - segitiga
+  - PreviousIcon
+  m_RenderDataMap: {}
+  m_Tag: LessonsUIAtlas
+  m_IsVariant: 0
