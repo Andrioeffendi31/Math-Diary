@@ -77,7 +77,7 @@ public class IntroManager : MonoBehaviour
         if (cutSceneState == 3 && Dialogue.instance.dialogEnd)
         {
             dialogueName.text = "Kamu : ";
-            Dialogue.instance.typingSpeed = 0.05f;
+            Dialogue.instance.typingSpeed = 0.02f;
             Dialogue.instance.sentences = new string[6];
             Dialogue.instance.sentences[0] = "Hmmm....";
             Dialogue.instance.sentences[1] = "Apa ini mimpi ??";
@@ -128,7 +128,7 @@ public class IntroManager : MonoBehaviour
         yield return new WaitForSeconds(2f);
         SpawnPoint.SetActive(true);
         yield return new WaitForSeconds(3f);
-        Dialogue.instance.typingSpeed = 0.1f;
+        Dialogue.instance.typingSpeed = 0.02f;
         DialogueBox.SetActive(true);
         Dialogue.instance.DisplayDialogue();
         cutSceneState = 2;

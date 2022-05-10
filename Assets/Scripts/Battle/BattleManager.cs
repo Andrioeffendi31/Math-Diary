@@ -40,6 +40,8 @@ public class BattleManager : MonoBehaviour
     private GameObject WarriorElitePrefab;
     [SerializeField]
     private List<GameObject> EnemyPrefabs;
+    [SerializeField]
+    private List<GameObject> TwoDimensionShapes;
     [Space(5)]
 
     [Header("Spawnner")]
@@ -92,6 +94,10 @@ public class BattleManager : MonoBehaviour
     private List<Button> answerBtnList;
     [SerializeField]
     private List<Button> actionChoice;
+    [SerializeField]
+    private List<Sprite> nets;
+    [SerializeField]
+    private List<Sprite> ThreeDimensionShapes;
     [Space(5)]
 
     [Header("Baackground")]
@@ -119,7 +125,7 @@ public class BattleManager : MonoBehaviour
     private bool isUltimate = false;
     private bool timerActive = false;
     private float currentTime;
-    private int startSeconds = 100;
+    private int startSeconds;
 
     public static string generatedQuestion;
     public static string generatedAnswer;
@@ -128,7 +134,9 @@ public class BattleManager : MonoBehaviour
     public static bool isWin;
     public static int totalCorrectAns;
     public static int totalWrongAns;
-
+    RCG.FisherYatesRandomizer fr = new RCG.FisherYatesRandomizer();
+    TwoDimentionalFigure.CalculateAreaParimeter calculateAreaParimeter = new TwoDimentionalFigure.CalculateAreaParimeter();
+    ThreeDimentionalFigure.CalculateSurfaceVolume calculateSurfaceVolume = new ThreeDimentionalFigure.CalculateSurfaceVolume();
     private float ButtonReactivateDelay = 1.4f;
 
 
@@ -153,6 +161,14 @@ public class BattleManager : MonoBehaviour
         isWin = false;
         totalCorrectAns = 0;
         totalWrongAns = 0;
+        if (StageManager.selectedStage == "unit2_section1" || StageManager.selectedStage == "unit3_section1")
+        {
+            startSeconds = 70;
+        }
+        else
+        {
+            startSeconds = 100;
+        }
 
         StartCoroutine(GetUsedAvatar());
         StartCoroutine(GetUserData());
@@ -167,6 +183,7 @@ public class BattleManager : MonoBehaviour
             if (currentTime <= 0)
             {
                 timerActive = false;
+                totalWrongAns++;
                 StartCoroutine(EnemyAttack());
             }
         }
@@ -361,14 +378,7 @@ public class BattleManager : MonoBehaviour
         isUltimate = false;
         totalTurn += 2;
         Debug.Log(totalTurn);
-        if (state != 4)
-        {
-            StartCoroutine(EnemyAttack());
-        }
-        else
-        {
-            StartCoroutine(BossAttack());
-        }
+        StartCoroutine(EnemyAttack());
         StartCoroutine(HideActionPanel());
         actionChoice[1].transform.GetChild(0).gameObject.SetActive(false);
     }
@@ -471,6 +481,7 @@ public class BattleManager : MonoBehaviour
         if (totalHP <= 0)
         {
             totalHP = 0;
+            HPAmount.text = totalHP.ToString() + "/100";
             cameraController.SetBool("Hero", true);
             cameraController.SetBool("Enemy", false);
             avatarParent.GetChild(1).GetChild(0).GetComponent<Animator>().SetTrigger("isDead");
@@ -692,6 +703,697 @@ public class BattleManager : MonoBehaviour
             GenerateAnswer();
             Debug.Log("Answer: " + generatedAnswer);
         }
+        else if (StageManager.selectedStage == "unit2_section1")
+        {
+            List<string> questionList = new List<string>();
+            List<string> choices = new List<string>();
+
+            string[] question = {
+                "Berapakah jumlah simetri lipat dari persegi",
+                "Berapakah jumlah simetri lipat dari persegi panjang",
+                "Berapakah jumlah simetri lipat dari belah ketupat",
+                "Berapakah jumlah simetri lipat dari jajar genjang",
+                "Berapakah jumlah simetri lipat dari segitiga sama kaki",
+                "Berapakah jumlah simetri lipat dari segitiga sama sisi",
+                "Berapakah jumlah simetri lipat dari segitiga sembarang",
+                "Berapakah jumlah simetri lipat dari segitiga siku-siku",
+                "Berapakah jumlah simetri lipat dari trapesium sama kaki",
+                "Berapakah jumlah simetri lipat dari trapesium siku-siku",
+                "Berapakah jumlah simetri lipat dari trapesium sembarang",
+                "Berapakah jumlah simetri lipat dari layang-layang",
+                "Berapakah jumlah simetri lipat dari lingkaran",
+                "Berapakah jumlah simetri putar dari persegi",
+                "Berapakah jumlah simetri putar dari persegi panjang",
+                "Berapakah jumlah simetri putar dari belah ketupat",
+                "Berapakah jumlah simetri putar dari jajar genjang",
+                "Berapakah jumlah simetri putar dari segitiga sama kaki",
+                "Berapakah jumlah simetri putar dari segitiga sama sisi",
+                "Berapakah jumlah simetri putar dari segitiga sembarang",
+                "Berapakah jumlah simetri putar dari segitiga siku-siku",
+                "Berapakah jumlah simetri putar dari trapesium sama kaki",
+                "Berapakah jumlah simetri putar dari trapesium siku-siku",
+                "Berapakah jumlah simetri putar dari trapesium sembarang",
+                "Berapakah jumlah simetri putar dari layang-layang",
+                "Berapakah jumlah simetri putar dari lingkaran"};
+
+            questionList.AddRange(question);
+            int randomQuestion = Random.Range(0, questionList.Count);
+            if (randomQuestion == 0 || randomQuestion == 13)
+            {
+                choices.Clear();
+                choices.Add("1");
+                choices.Add("2");
+                choices.Add("3");
+                choices.Add("4");
+                fr = new RCG.FisherYatesRandomizer(questionList[randomQuestion], choices, "4");
+                fr.ShuffleChoices();
+                generatedQuestion = fr.Question;
+                generatedAnswer = fr.Answer;
+            }
+            else if (randomQuestion == 1 || randomQuestion == 2 || randomQuestion == 14 || randomQuestion == 15 || randomQuestion == 16)
+            {
+                choices.Clear();
+                choices.Add("0");
+                choices.Add("2");
+                choices.Add("3");
+                choices.Add("Tak Hingga");
+                fr = new RCG.FisherYatesRandomizer(questionList[randomQuestion], choices, "2");
+                fr.ShuffleChoices();
+                generatedQuestion = fr.Question;
+                generatedAnswer = fr.Answer;
+            }
+            else if (randomQuestion == 3 || randomQuestion == 6 || randomQuestion == 6 || randomQuestion == 9 || randomQuestion == 10 ||
+                     randomQuestion == 17 || randomQuestion == 19 || randomQuestion == 20 || randomQuestion == 21 || randomQuestion == 22 ||
+                     randomQuestion == 23 || randomQuestion == 24)
+            {
+                choices.Clear();
+                choices.Add("0");
+                choices.Add("2");
+                choices.Add("3");
+                choices.Add("Tak Hingga");
+                fr = new RCG.FisherYatesRandomizer(questionList[randomQuestion], choices, "0");
+                fr.ShuffleChoices();
+                generatedQuestion = fr.Question;
+                generatedAnswer = fr.Answer;
+            }
+            else if (randomQuestion == 4 || randomQuestion == 7 || randomQuestion == 8 || randomQuestion == 11)
+            {
+                choices.Clear();
+                choices.Add("0");
+                choices.Add("1");
+                choices.Add("2");
+                choices.Add("4");
+                fr = new RCG.FisherYatesRandomizer(questionList[randomQuestion], choices, "1");
+                fr.ShuffleChoices();
+                generatedQuestion = fr.Question;
+                generatedAnswer = fr.Answer;
+            }
+            else if (randomQuestion == 12 || randomQuestion == 25)
+            {
+                choices.Clear();
+                choices.Add("0");
+                choices.Add("1");
+                choices.Add("2");
+                choices.Add("Tak Hingga");
+                fr = new RCG.FisherYatesRandomizer(questionList[randomQuestion], choices, "Tak Hingga");
+                fr.ShuffleChoices();
+                generatedQuestion = fr.Question;
+                generatedAnswer = fr.Answer;
+            }
+            else if (randomQuestion == 5 || randomQuestion == 18)
+            {
+                choices.Clear();
+                choices.Add("0");
+                choices.Add("1");
+                choices.Add("2");
+                choices.Add("3");
+                fr = new RCG.FisherYatesRandomizer(questionList[randomQuestion], choices, "3");
+                fr.ShuffleChoices();
+                generatedQuestion = fr.Question;
+                generatedAnswer = fr.Answer;
+            }
+            questionText.text = generatedQuestion;
+            GenerateAnswer();
+            Debug.Log("Answer: " + generatedAnswer);
+        }
+        else if (StageManager.selectedStage == "unit2_section2")
+        {
+            int _num1 = Random.Range(1, 50);
+            int _num2 = Random.Range(1, 50);
+            int _num3 = Random.Range(1, 50);
+
+            string[] questionTypes = { "luas", "keliling" };
+            string[] shapeNames = { "persegi", "persegi panjang", "belah ketupat", "jajar genjang", "segitiga", "trapesium", "layang-layang", "lingkaran" };
+            List<string> choices = new List<string>();
+
+            int questionType = Random.Range(0, questionTypes.Length);
+            int shapeName = Random.Range(0, shapeNames.Length);
+            generatedQuestion = "Berapakah " + questionTypes[questionType] + " dari " + shapeNames[shapeName] + " disamping ?";
+
+            if (questionType == 0)
+            {
+                if (shapeName == 0)
+                {
+                    Instantiate(TwoDimensionShapes[shapeName], QuestionPanel.transform);
+                    QuestionPanel.transform.GetChild(2).GetChild(0).GetComponent<TextMeshProUGUI>().text = _num1.ToString() + "cm";
+                    calculateAreaParimeter = new TwoDimentionalFigure.CalculateAreaParimeter(_num1);
+                    generatedAnswer = calculateAreaParimeter.SquareArea().ToString();
+                }
+                else if (shapeName == 1)
+                {
+                    Instantiate(TwoDimensionShapes[shapeName], QuestionPanel.transform);
+                    QuestionPanel.transform.GetChild(2).GetChild(0).GetComponent<TextMeshProUGUI>().text = _num1.ToString() + "cm";
+                    QuestionPanel.transform.GetChild(2).GetChild(1).GetComponent<TextMeshProUGUI>().text = _num2.ToString() + "cm";
+                    calculateAreaParimeter = new TwoDimentionalFigure.CalculateAreaParimeter(_num1, _num2);
+                    generatedAnswer = calculateAreaParimeter.RectangleArea().ToString();
+                }
+                else if (shapeName == 2)
+                {
+                    Instantiate(TwoDimensionShapes[shapeName], QuestionPanel.transform);
+                    QuestionPanel.transform.GetChild(2).GetChild(0).GetComponent<TextMeshProUGUI>().text = _num1.ToString() + "cm";
+                    QuestionPanel.transform.GetChild(2).GetChild(1).GetComponent<TextMeshProUGUI>().text = _num2.ToString() + "cm";
+                    calculateAreaParimeter = new TwoDimentionalFigure.CalculateAreaParimeter(_num1, _num2);
+                    generatedAnswer = calculateAreaParimeter.RhombusArea().ToString();
+                }
+                else if (shapeName == 3)
+                {
+                    Instantiate(TwoDimensionShapes[shapeName], QuestionPanel.transform);
+                    QuestionPanel.transform.GetChild(2).GetChild(0).GetComponent<TextMeshProUGUI>().text = _num1.ToString() + "cm";
+                    QuestionPanel.transform.GetChild(2).GetChild(1).GetComponent<TextMeshProUGUI>().text = _num2.ToString() + "cm";
+                    calculateAreaParimeter = new TwoDimentionalFigure.CalculateAreaParimeter(_num1, _num2);
+                    generatedAnswer = calculateAreaParimeter.ParallelogramArea().ToString();
+                }
+                else if (shapeName == 4)
+                {
+                    Instantiate(TwoDimensionShapes[shapeName], QuestionPanel.transform);
+                    QuestionPanel.transform.GetChild(2).GetChild(0).GetComponent<TextMeshProUGUI>().text = _num1.ToString() + "cm";
+                    QuestionPanel.transform.GetChild(2).GetChild(1).GetComponent<TextMeshProUGUI>().text = _num2.ToString() + "cm";
+                    calculateAreaParimeter = new TwoDimentionalFigure.CalculateAreaParimeter(_num1, _num2);
+                    generatedAnswer = calculateAreaParimeter.TriangleArea().ToString();
+                }
+                else if (shapeName == 5)
+                {
+                    Instantiate(TwoDimensionShapes[shapeName], QuestionPanel.transform);
+                    QuestionPanel.transform.GetChild(2).GetChild(0).GetComponent<TextMeshProUGUI>().text = _num1.ToString() + "cm";
+                    QuestionPanel.transform.GetChild(2).GetChild(1).GetComponent<TextMeshProUGUI>().text = _num2.ToString() + "cm";
+                    QuestionPanel.transform.GetChild(2).GetChild(2).GetComponent<TextMeshProUGUI>().text = _num3.ToString() + "cm";
+                    calculateAreaParimeter = new TwoDimentionalFigure.CalculateAreaParimeter(_num1, _num2, _num3);
+                    generatedAnswer = calculateAreaParimeter.TrapezoidArea().ToString();
+                }
+                else if (shapeName == 6)
+                {
+                    Instantiate(TwoDimensionShapes[shapeName], QuestionPanel.transform);
+                    QuestionPanel.transform.GetChild(2).GetChild(0).GetComponent<TextMeshProUGUI>().text = _num1.ToString() + "cm";
+                    QuestionPanel.transform.GetChild(2).GetChild(1).GetComponent<TextMeshProUGUI>().text = _num2.ToString() + "cm";
+                    calculateAreaParimeter = new TwoDimentionalFigure.CalculateAreaParimeter(_num1, _num2);
+                    generatedAnswer = calculateAreaParimeter.KiteArea().ToString();
+                }
+                else if (shapeName == 7)
+                {
+                    Instantiate(TwoDimensionShapes[shapeName], QuestionPanel.transform);
+                    QuestionPanel.transform.GetChild(2).GetChild(0).GetComponent<TextMeshProUGUI>().text = _num1.ToString() + "cm";
+                    calculateAreaParimeter = new TwoDimentionalFigure.CalculateAreaParimeter(_num1);
+                    generatedAnswer = calculateAreaParimeter.CircleArea().ToString();
+                }
+            }
+            else if (questionType == 1)
+            {
+                if (shapeName == 0)
+                {
+                    Instantiate(TwoDimensionShapes[shapeName], QuestionPanel.transform);
+                    QuestionPanel.transform.GetChild(2).GetChild(0).GetComponent<TextMeshProUGUI>().text = _num1.ToString() + "cm";
+                    calculateAreaParimeter = new TwoDimentionalFigure.CalculateAreaParimeter(_num1);
+                    generatedAnswer = calculateAreaParimeter.SquarePerimeter().ToString();
+                }
+                else if (shapeName == 1)
+                {
+                    Instantiate(TwoDimensionShapes[shapeName], QuestionPanel.transform);
+                    QuestionPanel.transform.GetChild(2).GetChild(0).GetComponent<TextMeshProUGUI>().text = _num1.ToString() + "cm";
+                    QuestionPanel.transform.GetChild(2).GetChild(1).GetComponent<TextMeshProUGUI>().text = _num2.ToString() + "cm";
+                    calculateAreaParimeter = new TwoDimentionalFigure.CalculateAreaParimeter(_num1, _num2);
+                    generatedAnswer = calculateAreaParimeter.RectanglePerimeter().ToString();
+                }
+                else if (shapeName == 2)
+                {
+                    Instantiate(TwoDimensionShapes[shapeName + 6], QuestionPanel.transform);
+                    QuestionPanel.transform.GetChild(2).GetChild(0).GetComponent<TextMeshProUGUI>().text = _num1.ToString() + "cm";
+                    calculateAreaParimeter = new TwoDimentionalFigure.CalculateAreaParimeter(_num1);
+                    generatedAnswer = calculateAreaParimeter.RhombusPerimeter().ToString();
+                }
+                else if (shapeName == 3)
+                {
+                    Instantiate(TwoDimensionShapes[shapeName + 6], QuestionPanel.transform);
+                    QuestionPanel.transform.GetChild(2).GetChild(0).GetComponent<TextMeshProUGUI>().text = _num1.ToString() + "cm";
+                    QuestionPanel.transform.GetChild(2).GetChild(1).GetComponent<TextMeshProUGUI>().text = _num2.ToString() + "cm";
+                    calculateAreaParimeter = new TwoDimentionalFigure.CalculateAreaParimeter(_num1, _num2);
+                    generatedAnswer = calculateAreaParimeter.ParallelogramPerimeter().ToString();
+                }
+                else if (shapeName == 4)
+                {
+                    Instantiate(TwoDimensionShapes[shapeName + 6], QuestionPanel.transform);
+                    QuestionPanel.transform.GetChild(2).GetChild(0).GetComponent<TextMeshProUGUI>().text = _num1.ToString() + "cm";
+                    QuestionPanel.transform.GetChild(2).GetChild(1).GetComponent<TextMeshProUGUI>().text = _num2.ToString() + "cm";
+                    QuestionPanel.transform.GetChild(2).GetChild(2).GetComponent<TextMeshProUGUI>().text = _num3.ToString() + "cm";
+                    calculateAreaParimeter = new TwoDimentionalFigure.CalculateAreaParimeter(_num1, _num2, _num3);
+                    generatedAnswer = calculateAreaParimeter.TrianglePerimeter().ToString();
+                }
+                else if (shapeName == 5)
+                {
+                    Instantiate(TwoDimensionShapes[shapeName + 6], QuestionPanel.transform);
+                    QuestionPanel.transform.GetChild(2).GetChild(0).GetComponent<TextMeshProUGUI>().text = _num1.ToString() + "cm";
+                    QuestionPanel.transform.GetChild(2).GetChild(1).GetComponent<TextMeshProUGUI>().text = _num2.ToString() + "cm";
+                    QuestionPanel.transform.GetChild(2).GetChild(2).GetComponent<TextMeshProUGUI>().text = _num3.ToString() + "cm";
+                    calculateAreaParimeter = new TwoDimentionalFigure.CalculateAreaParimeter(_num1, _num2, _num3);
+                    generatedAnswer = calculateAreaParimeter.TrapezoidPerimeter().ToString();
+                }
+                else if (shapeName == 6)
+                {
+                    Instantiate(TwoDimensionShapes[shapeName + 6], QuestionPanel.transform);
+                    QuestionPanel.transform.GetChild(2).GetChild(0).GetComponent<TextMeshProUGUI>().text = _num1.ToString() + "cm";
+                    QuestionPanel.transform.GetChild(2).GetChild(1).GetComponent<TextMeshProUGUI>().text = _num2.ToString() + "cm";
+                    calculateAreaParimeter = new TwoDimentionalFigure.CalculateAreaParimeter(_num1, _num2);
+                    generatedAnswer = calculateAreaParimeter.KitePerimeter().ToString();
+                }
+                else if (shapeName == 7)
+                {
+                    Instantiate(TwoDimensionShapes[shapeName], QuestionPanel.transform);
+                    QuestionPanel.transform.GetChild(2).GetChild(0).GetComponent<TextMeshProUGUI>().text = _num1.ToString() + "cm";
+                    calculateAreaParimeter = new TwoDimentionalFigure.CalculateAreaParimeter(_num1);
+                    generatedAnswer = calculateAreaParimeter.CirclePerimeter().ToString();
+                }
+            }
+
+            choices.Clear();
+            choices.Add(generatedAnswer + " cm");
+            choices.Add((float.Parse(generatedAnswer) + (float)Random.Range(1, 10) * 2f).ToString() + " cm");
+            choices.Add((float.Parse(generatedAnswer) - Random.Range(1, 10) * 2f).ToString() + " cm");
+            choices.Add((float.Parse(generatedAnswer) + (float)Random.Range(1, 10)).ToString() + " cm");
+            fr = new RCG.FisherYatesRandomizer(generatedQuestion, choices, generatedAnswer + " cm");
+
+            generatedAnswer = fr.Answer;
+            fr.ShuffleChoices();
+            questionText.text = fr.Question;
+            GenerateAnswer();
+            Debug.Log("Answer: " + generatedAnswer);
+        }
+
+        else if (StageManager.selectedStage == "unit3_section1")
+        {
+            List<string> questionList = new List<string>();
+            List<string> choices = new List<string>();
+            int randomQuestion = 0;
+
+            string[] question = {
+                "Berapakah jumlah rusuk dari sebuah kubus ?",
+                "Berapakah jumlah rusuk dari sebuah balok ?",
+                "Berapakah jumlah rusuk dari sebuah prisma segitiga ?",
+                "Berapakah jumlah rusuk dari sebuah prisma segi empat ?",
+                "Berapakah jumlah rusuk dari sebuah limas segitiga ?",
+                "Berapakah jumlah rusuk dari sebuah limas segi empat ?",
+                "Berapakah jumlah rusuk dari sebuah tabung ?",
+                "Berapakah jumlah rusuk dari sebuah kerucut ?",
+                "Berapakah jumlah rusuk dari sebuah bola ?",
+                "Berapakah jumlah sudut dari sebuah kubus ?",
+                "Berapakah jumlah sudut dari sebuah balok ?",
+                "Berapakah jumlah sudut dari sebuah prisma segitiga ?",
+                "Berapakah jumlah sudut dari sebuah prisma segi empat ?",
+                "Berapakah jumlah sudut dari sebuah limas segitiga ?",
+                "Berapakah jumlah sudut dari sebuah limas segi empat ?",
+                "Berapakah jumlah sudut dari sebuah tabung ?",
+                "Berapakah jumlah sudut dari sebuah kerucut ?",
+                "Berapakah jumlah sudut dari sebuah bola ?",};
+
+            questionList.AddRange(question);
+            var questionType = Random.Range(0, 10);
+
+            if (questionType > 6)
+            {
+                randomQuestion = Random.Range(0, nets.Count - 1);
+
+                if (randomQuestion == 0)
+                {
+                    choices.Clear();
+                    choices.Add("Kubus");
+                    choices.Add("Balok");
+                    choices.Add("Prisma");
+                    choices.Add("Limas");
+                    fr = new RCG.FisherYatesRandomizer(generatedQuestion, choices, "Kubus");
+                    fr.ShuffleChoices();
+                    generatedAnswer = fr.Answer;
+                }
+                else if (randomQuestion == 1)
+                {
+                    choices.Clear();
+                    choices.Add("Kubus");
+                    choices.Add("Balok");
+                    choices.Add("Bola");
+                    choices.Add("Limas");
+                    fr = new RCG.FisherYatesRandomizer(generatedQuestion, choices, "Balok");
+                    fr.ShuffleChoices();
+                    generatedAnswer = fr.Answer;
+                }
+                else if (randomQuestion == 2)
+                {
+                    choices.Clear();
+                    choices.Add("Tabung");
+                    choices.Add("Balok");
+                    choices.Add("Prisma");
+                    choices.Add("Limas");
+                    fr = new RCG.FisherYatesRandomizer(generatedQuestion, choices, "Prisma");
+                    fr.ShuffleChoices();
+                    generatedAnswer = fr.Answer;
+                }
+                else if (randomQuestion == 3)
+                {
+                    choices.Clear();
+                    choices.Add("Tabung");
+                    choices.Add("Kerucut");
+                    choices.Add("Prisma");
+                    choices.Add("Limas");
+                    fr = new RCG.FisherYatesRandomizer(generatedQuestion, choices, "Limas");
+                    fr.ShuffleChoices();
+                    generatedAnswer = fr.Answer;
+                }
+                else if (randomQuestion == 4)
+                {
+                    choices.Clear();
+                    choices.Add("Tabung");
+                    choices.Add("Kerucut");
+                    choices.Add("Prisma");
+                    choices.Add("Bola");
+                    fr = new RCG.FisherYatesRandomizer(generatedQuestion, choices, "Tabung");
+                    fr.ShuffleChoices();
+                    generatedAnswer = fr.Answer;
+                }
+                else if (randomQuestion == 5)
+                {
+                    choices.Clear();
+                    choices.Add("Kerucut");
+                    choices.Add("Bola");
+                    choices.Add("Tabung");
+                    choices.Add("Limas");
+                    fr = new RCG.FisherYatesRandomizer(generatedQuestion, choices, "Kerucut");
+                    fr.ShuffleChoices();
+                    generatedAnswer = fr.Answer;
+                }
+                generatedQuestion = "Gambar disamping merupakan jaring-jaring ?";
+                questionText.transform.GetChild(0).gameObject.SetActive(true);
+                questionText.transform.GetChild(0).GetComponent<Image>().sprite = nets[randomQuestion];
+                questionText.text = generatedQuestion;
+                questionText.alignment = TextAlignmentOptions.Left;
+                questionText.fontSize = 32;
+                questionText.GetComponent<RectTransform>().offsetMin = new Vector2(400, questionText.GetComponent<RectTransform>().offsetMin.y);
+                GenerateAnswer();
+            }
+            else
+            {
+                questionText.transform.GetChild(0).gameObject.SetActive(false);
+                randomQuestion = Random.Range(0, questionList.Count);
+                if (randomQuestion == 0 || randomQuestion == 3)
+                {
+                    choices.Clear();
+                    choices.Add("10");
+                    choices.Add("12");
+                    choices.Add("14");
+                    choices.Add("16");
+                    fr = new RCG.FisherYatesRandomizer(questionList[randomQuestion], choices, "12");
+                    fr.ShuffleChoices();
+                    generatedQuestion = fr.Question;
+                    generatedAnswer = fr.Answer;
+                }
+                else if (randomQuestion == 2)
+                {
+                    choices.Clear();
+                    choices.Add("8");
+                    choices.Add("9");
+                    choices.Add("10");
+                    choices.Add("12");
+                    fr = new RCG.FisherYatesRandomizer(questionList[randomQuestion], choices, "9");
+                    fr.ShuffleChoices();
+                    generatedQuestion = fr.Question;
+                    generatedAnswer = fr.Answer;
+                }
+                else if (randomQuestion == 4 || randomQuestion == 11)
+                {
+                    choices.Clear();
+                    choices.Add("4");
+                    choices.Add("6");
+                    choices.Add("7");
+                    choices.Add("8");
+                    fr = new RCG.FisherYatesRandomizer(questionList[randomQuestion], choices, "6");
+                    fr.ShuffleChoices();
+                    generatedQuestion = fr.Question;
+                    generatedAnswer = fr.Answer;
+                }
+                else if (randomQuestion == 5 || randomQuestion == 9 || randomQuestion == 10 || randomQuestion == 12)
+                {
+                    choices.Clear();
+                    choices.Add("6");
+                    choices.Add("8");
+                    choices.Add("10");
+                    choices.Add("12");
+                    fr = new RCG.FisherYatesRandomizer(questionList[randomQuestion], choices, "8");
+                    fr.ShuffleChoices();
+                    generatedQuestion = fr.Question;
+                    generatedAnswer = fr.Answer;
+                }
+                else if (randomQuestion == 6)
+                {
+                    choices.Clear();
+                    choices.Add("2");
+                    choices.Add("1");
+                    choices.Add("3");
+                    choices.Add("4");
+                    fr = new RCG.FisherYatesRandomizer(questionList[randomQuestion], choices, "2");
+                    fr.ShuffleChoices();
+                    generatedQuestion = fr.Question;
+                    generatedAnswer = fr.Answer;
+                }
+                else if (randomQuestion == 7 || randomQuestion == 16)
+                {
+                    choices.Clear();
+                    choices.Add("1");
+                    choices.Add("2");
+                    choices.Add("3");
+                    choices.Add("0");
+                    fr = new RCG.FisherYatesRandomizer(questionList[randomQuestion], choices, "1");
+                    fr.ShuffleChoices();
+                    generatedQuestion = fr.Question;
+                    generatedAnswer = fr.Answer;
+                }
+                else if (randomQuestion == 8 || randomQuestion == 15 || randomQuestion == 17)
+                {
+                    choices.Clear();
+                    choices.Add("0");
+                    choices.Add("1");
+                    choices.Add("2");
+                    choices.Add("3");
+                    fr = new RCG.FisherYatesRandomizer(questionList[randomQuestion], choices, "0");
+                    fr.ShuffleChoices();
+                    generatedQuestion = fr.Question;
+                    generatedAnswer = fr.Answer;
+                }
+                else if (randomQuestion == 13)
+                {
+                    choices.Clear();
+                    choices.Add("4");
+                    choices.Add("5");
+                    choices.Add("6");
+                    choices.Add("8");
+                    fr = new RCG.FisherYatesRandomizer(questionList[randomQuestion], choices, "4");
+                    fr.ShuffleChoices();
+                    generatedQuestion = fr.Question;
+                    generatedAnswer = fr.Answer;
+                }
+                else if (randomQuestion == 14)
+                {
+                    choices.Clear();
+                    choices.Add("4");
+                    choices.Add("5");
+                    choices.Add("6");
+                    choices.Add("8");
+                    fr = new RCG.FisherYatesRandomizer(questionList[randomQuestion], choices, "5");
+                    fr.ShuffleChoices();
+                    generatedQuestion = fr.Question;
+                    generatedAnswer = fr.Answer;
+                }
+                questionText.text = generatedQuestion;
+                questionText.alignment = TextAlignmentOptions.Center;
+                questionText.fontSize = 36;
+                questionText.GetComponent<RectTransform>().offsetMin = new Vector2(74.5f, questionText.GetComponent<RectTransform>().offsetMin.y);
+                GenerateAnswer();
+            }
+            Debug.Log("Answer: " + generatedAnswer);
+        }
+        else if (StageManager.selectedStage == "unit3_section2")
+        {
+            List<string> choices = new List<string>();
+            int randomQuestion = Random.Range(0, ThreeDimensionShapes.Count);
+            int num1 = 0, num2 = 0, num3 = 0;
+            questionText.transform.GetChild(0).GetComponent<Image>().sprite = ThreeDimensionShapes[randomQuestion];
+
+            if (randomQuestion == 0)
+            {
+                int questionType = Random.Range(0, 3);
+                if (questionType == 0)
+                {
+                    num1 = Random.Range(1, 30);
+                    generatedQuestion = "Berapakah luas permukaan dari kubus disamping yang memiliki panjang rusuk sebesar " + num1 + " cm ?";
+                    calculateSurfaceVolume = new ThreeDimentionalFigure.CalculateSurfaceVolume(num1);
+                    generatedAnswer = calculateSurfaceVolume.CubeSurface().ToString();
+                }
+                else if (questionType == 1)
+                {
+                    num1 = Random.Range(1, 30);
+                    generatedQuestion = "Berapakah volume dari kubus disamping yang memiliki panjang rusuk sebesar " + num1 + " cm ?";
+                    calculateSurfaceVolume = new ThreeDimentionalFigure.CalculateSurfaceVolume(num1);
+                    generatedAnswer = calculateSurfaceVolume.CubeVolume().ToString();
+                }
+                else if (questionType == 2)
+                {
+                    num1 = Random.Range(1, 30);
+                    calculateSurfaceVolume = new ThreeDimentionalFigure.CalculateSurfaceVolume(num1);
+                    float volume = calculateSurfaceVolume.CubeVolume();
+                    generatedQuestion = "Berapakah luas permukaan dari kubus disamping yang memiliki volume sebesar " + volume + " cm ?";
+                    generatedAnswer = calculateSurfaceVolume.CubeSurface().ToString();
+                }
+            }
+            else if (randomQuestion == 1)
+            {
+                int questionType = Random.Range(0, 3);
+                if (questionType == 0)
+                {
+                    num1 = Random.Range(1, 30);
+                    num2 = Random.Range(1, 30);
+                    num3 = Random.Range(1, 30);
+                    generatedQuestion = "Berapakah luas permukaan dari balok disamping yang memiliki panjang " + num1 + " cm, lebar " + num2 + " cm, dan tinggi " + num3 + " cm ?";
+                    calculateSurfaceVolume = new ThreeDimentionalFigure.CalculateSurfaceVolume(num1, num2, num3);
+                    generatedAnswer = calculateSurfaceVolume.BoxSurface().ToString();
+                }
+                else if (questionType == 1)
+                {
+                    num1 = Random.Range(1, 30);
+                    num2 = Random.Range(1, 30);
+                    num3 = Random.Range(1, 30);
+                    generatedQuestion = "Berapakah volume dari balok disamping yang memiliki panjang " + num1 + " cm, lebar " + num2 + " cm, dan tinggi " + num3 + " cm ?";
+                    calculateSurfaceVolume = new ThreeDimentionalFigure.CalculateSurfaceVolume(num1, num2, num3);
+                    generatedAnswer = calculateSurfaceVolume.BoxVolume().ToString();
+                }
+                else if (questionType == 2)
+                {
+                    num1 = Random.Range(1, 30);
+                    num2 = Random.Range(1, 30);
+                    num3 = Random.Range(1, 30);
+                    calculateSurfaceVolume = new ThreeDimentionalFigure.CalculateSurfaceVolume(num1, num2, num3);
+                    float volume = calculateSurfaceVolume.BoxVolume();
+                    generatedQuestion = "Berapakah luas permukaan dari balok disamping yang memiliki volume sebesar " + volume + " cm, jika lebar balok " + num2 + " cm dan tingginya " + num3 + " cm ?";
+                    generatedAnswer = calculateSurfaceVolume.BoxSurface().ToString();
+                }
+            }
+            else if (randomQuestion == 2)
+            {
+                int questionType = Random.Range(0, 3);
+                if (questionType == 0)
+                {
+                    num1 = Random.Range(1, 30);
+                    num2 = Random.Range(1, 30);
+                    num3 = Random.Range(1, 30);
+                    generatedQuestion = "Berapakah luas permukaan dari prisma disamping yang memiliki luas dan keliling alas sebesar " + num1 + " cm dan " + num2 + " cm, dengan tinggi prisma " + num3 + " cm ?";
+                    calculateSurfaceVolume = new ThreeDimentionalFigure.CalculateSurfaceVolume(num1, num2, num3);
+                    generatedAnswer = calculateSurfaceVolume.PrismSurface().ToString();
+                }
+                else if (questionType == 1)
+                {
+                    num1 = Random.Range(1, 30);
+                    num2 = Random.Range(1, 30);
+                    generatedQuestion = "Berapakah volume dari prisma disamping yang memiliki luas alas sebesar " + num1 + " cm, dan tinggi " + num2 + " cm ?";
+                    calculateSurfaceVolume = new ThreeDimentionalFigure.CalculateSurfaceVolume(num1, num2);
+                    generatedAnswer = calculateSurfaceVolume.PrismVolume().ToString();
+                }
+                else if (questionType == 2)
+                {
+                    num1 = Random.Range(1, 30);
+                    num2 = Random.Range(1, 30);
+                    calculateSurfaceVolume = new ThreeDimentionalFigure.CalculateSurfaceVolume(num1, num2);
+                    float volume = calculateSurfaceVolume.PrismVolume();
+                    generatedQuestion = "Diketahui volume prisma segitiga disamping adalah " + volume + " cm. Jika luas alasnya " + num1 + " cm. Berapakah tinggi prisma tersebut ?";
+                    generatedAnswer = num2.ToString();
+                }
+            }
+            else if (randomQuestion == 3)
+            {
+                int questionType = Random.Range(0, 2);
+                if (questionType == 0)
+                {
+                    num1 = Random.Range(1, 30);
+                    num2 = Random.Range(1, 30);
+                    generatedQuestion = "Berapakah luas permukaan dari limas disamping yang memiliki luas alas sebesar " + num1 + " cm dan luas sisi miring sebesar " + num2 + " cm ?";
+                    calculateSurfaceVolume = new ThreeDimentionalFigure.CalculateSurfaceVolume(num1, num2);
+                    generatedAnswer = calculateSurfaceVolume.PyramidSurface().ToString();
+                }
+                else if (questionType == 1)
+                {
+                    num1 = Random.Range(1, 30);
+                    num2 = Random.Range(1, 30);
+                    generatedQuestion = "Berapakah volume dari limas disamping dengan luas alas sebesar " + num1 + " cm, dan tinggi " + num2 + " cm ?";
+                    calculateSurfaceVolume = new ThreeDimentionalFigure.CalculateSurfaceVolume(num1, num2);
+                    generatedAnswer = calculateSurfaceVolume.PyramidVolume().ToString();
+                }
+            }
+            else if (randomQuestion == 4)
+            {
+                int questionType = Random.Range(0, 2);
+                if (questionType == 0)
+                {
+                    num1 = Random.Range(1, 30);
+                    num2 = Random.Range(1, 30);
+                    generatedQuestion = "Berapakah luas permukaan dari tabung disamping yang memiliki tinggi " + num2 + " cm dan jari-jari alas sebesar " + num1 + " cm ?";
+                    calculateSurfaceVolume = new ThreeDimentionalFigure.CalculateSurfaceVolume(num1, num2);
+                    generatedAnswer = calculateSurfaceVolume.TubeSurface().ToString();
+                }
+                else if (questionType == 1)
+                {
+                    num1 = Random.Range(1, 30);
+                    num2 = Random.Range(1, 30);
+                    generatedQuestion = "Berapakah volume dari tabung disamping dengan tinggi " + num2 + " cm dan jari-jari alas sebesar " + num1 + " cm ?";
+                    calculateSurfaceVolume = new ThreeDimentionalFigure.CalculateSurfaceVolume(num1, num2);
+                    generatedAnswer = calculateSurfaceVolume.TubeSurface().ToString();
+                }
+            }
+            else if (randomQuestion == 5)
+            {
+                int questionType = Random.Range(0, 2);
+                if (questionType == 0)
+                {
+                    num1 = Random.Range(1, 30);
+                    num2 = Random.Range(1, 30);
+                    generatedQuestion = "Diketahui kerucut disamping memiliki sisi alas dengan jari-jari " + num1 + " cm dan tinggi " + num2 + " cm. Berapakah luas permukaan kerucut tersebut ?";
+                    calculateSurfaceVolume = new ThreeDimentionalFigure.CalculateSurfaceVolume(num1, num2);
+                    generatedAnswer = calculateSurfaceVolume.ConeSurface().ToString();
+                }
+                else if (questionType == 1)
+                {
+                    num1 = Random.Range(1, 30);
+                    num2 = Random.Range(1, 30);
+                    generatedQuestion = "Diketahui kerucut disamping memiliki sisi alas dengan jari-jari " + num1 + " cm dan tinggi " + num2 + " cm. Berapakah volume kerucut tersebut ?";
+                    calculateSurfaceVolume = new ThreeDimentionalFigure.CalculateSurfaceVolume(num1, num2);
+                    generatedAnswer = calculateSurfaceVolume.ConeVolume().ToString();
+                }
+            }
+            else if (randomQuestion == 6)
+            {
+                int questionType = Random.Range(0, 2);
+                if (questionType == 0)
+                {
+                    num1 = Random.Range(1, 30);
+                    num2 = Random.Range(1, 30);
+                    generatedQuestion = "Sebuah bola memiliki jari-jari " + num1 + " cm. Berapakah luas permukaan bola tersebut ?";
+                    calculateSurfaceVolume = new ThreeDimentionalFigure.CalculateSurfaceVolume(num1);
+                    generatedAnswer = calculateSurfaceVolume.SphereSurface().ToString();
+                }
+                else if (questionType == 1)
+                {
+                    num1 = Random.Range(1, 30);
+                    num2 = Random.Range(1, 30);
+                    generatedQuestion = "Sebuah bola memiliki jari-jari " + num1 + " cm. Berapakah volume bola tersebut ?";
+                    calculateSurfaceVolume = new ThreeDimentionalFigure.CalculateSurfaceVolume(num1);
+                    generatedAnswer = calculateSurfaceVolume.SphereVolume().ToString();
+                }
+            }
+
+            choices.Clear();
+            choices.Add(generatedAnswer + " cm");
+            choices.Add((float.Parse(generatedAnswer) + (float)Random.Range(1, 10) * 2f).ToString() + " cm");
+            choices.Add((float.Parse(generatedAnswer) - Random.Range(1, 10) * 2f).ToString() + " cm");
+            choices.Add((float.Parse(generatedAnswer) + (float)Random.Range(1, 10)).ToString() + " cm");
+            fr = new RCG.FisherYatesRandomizer(generatedQuestion, choices, generatedAnswer + " cm");
+
+            generatedAnswer = fr.Answer;
+            fr.ShuffleChoices();
+            questionText.text = fr.Question;
+            GenerateAnswer();
+            Debug.Log("Answer: " + generatedAnswer);
+        }
     }
 
     private void GenerateAnswer()
@@ -721,11 +1423,24 @@ public class BattleManager : MonoBehaviour
                 }
             }
         }
+        else
+        {
+            for (int i = 0; i < answerBtnList.Count; i++)
+            {
+                answerBtnList[i].GetComponentInChildren<TMP_Text>().text = fr.Choices[i];
+                answerBtnList[i].GetComponent<Image>().color = new Color32(255, 255, 255, 225);
+            }
+        }
     }
 
     public void CheckAnswer(int buttonIndex)
     {
         timerActive = false;
+        if (StageManager.selectedStage == "unit2_section2")
+        {
+            Destroy(QuestionPanel.transform.GetChild(2).gameObject);
+        }
+
         foreach (Button btn in answerBtnList)
         {
             btn.interactable = false;
@@ -735,16 +1450,8 @@ public class BattleManager : MonoBehaviour
         if (answerBtnList[buttonIndex].GetComponentInChildren<TMP_Text>().text != generatedAnswer)
         {
             answerBtnList[buttonIndex].GetComponent<Image>().color = new Color32(255, 127, 127, 225);
-            if (state != 4)
-            {
-                StartCoroutine(EnemyAttack());
-                totalWrongAns++;
-            }
-            else
-            {
-                StartCoroutine(BossAttack());
-                totalWrongAns++;
-            }
+            StartCoroutine(EnemyAttack());
+            totalWrongAns++;
         }
         else
         {
@@ -775,25 +1482,23 @@ public class BattleManager : MonoBehaviour
         if (!isUltimate)
         {
             enemyHP -= 40;
-            if (enemyHP < 0)
+            if (enemyHP <= 0)
             {
                 enemyHP = 0;
                 EnemyCamera.Follow = enemyParent.GetChild(1).GetChild(0);
                 EnemyCamera.LookAt = enemyParent.GetChild(1).GetChild(0);
 
-                avatarParent.GetChild(1).GetChild(0).GetComponent<Animator>().SetBool("isAttack", true);
+                avatarParent.GetChild(1).GetChild(0).GetComponent<Animator>().SetTrigger("isAttack");
                 QuestionPanel.GetComponent<Animator>().SetBool("isClose", true);
                 TimerPanel.GetComponent<Animator>().SetBool("isClose", true);
                 if (usedAvatarName == "KumaTheWarriorCommon" || usedAvatarName == "KumaTheWarriorElite")
                 {
-                    AudioBattleManager.instance.playHeavySwordSFX1();
-                    yield return new WaitForSeconds(2f);
+                    yield return new WaitForSeconds(3f);
                     StartCoroutine(EnemyIsDead());
                 }
                 else
                 {
-                    AudioBattleManager.instance.playSwordSFX1();
-                    yield return new WaitForSeconds(1.2f);
+                    yield return new WaitForSeconds(1f);
                     StartCoroutine(EnemyIsDead());
                 }
             }
@@ -801,34 +1506,28 @@ public class BattleManager : MonoBehaviour
             {
                 if (usedAvatarName == "KumaTheWarriorCommon" || usedAvatarName == "KumaTheWarriorElite")
                 {
-                    avatarParent.GetChild(1).GetChild(0).GetComponent<Animator>().SetBool("isAttack", true);
+                    avatarParent.GetChild(1).GetChild(0).GetComponent<Animator>().SetTrigger("isAttack");
                     QuestionPanel.GetComponent<Animator>().SetBool("isClose", true);
                     TimerPanel.GetComponent<Animator>().SetBool("isClose", true);
-                    AudioBattleManager.instance.playHeavySwordSFX1();
                     yield return new WaitForSeconds(0.6f);
-                    enemyParent.GetChild(1).GetChild(0).GetComponent<Animator>().SetBool("isHit", true);
+                    enemyParent.GetChild(1).GetChild(0).GetComponent<Animator>().SetTrigger("isHit");
                     enemyParent.GetChild(1).GetChild(0).GetChild(0).GetChild(0).GetComponent<Slider>().value = enemyHP;
                     enemyParent.GetChild(1).GetChild(0).GetChild(0).GetChild(0).GetChild(0).GetChild(1).GetComponent<TMP_Text>().text = enemyHP + "/" + enemyTotalHP;
-                    yield return new WaitForSeconds(1.8f);
-                    avatarParent.GetChild(1).GetChild(0).GetComponent<Animator>().SetBool("isAttack", false);
-                    enemyParent.GetChild(1).GetChild(0).GetComponent<Animator>().SetBool("isHit", false);
+                    yield return new WaitForSeconds(2.4f);
                     QuestionPanel.SetActive(false);
                     TimerPanel.SetActive(false);
                     ShowActionPanel();
                 }
                 else
                 {
-                    avatarParent.GetChild(1).GetChild(0).GetComponent<Animator>().SetBool("isAttack", true);
+                    avatarParent.GetChild(1).GetChild(0).GetComponent<Animator>().SetTrigger("isAttack");
                     QuestionPanel.GetComponent<Animator>().SetBool("isClose", true);
                     TimerPanel.GetComponent<Animator>().SetBool("isClose", true);
-                    AudioBattleManager.instance.playSwordSFX1();
                     yield return new WaitForSeconds(0.4f);
-                    enemyParent.GetChild(1).GetChild(0).GetComponent<Animator>().SetBool("isHit", true);
+                    enemyParent.GetChild(1).GetChild(0).GetComponent<Animator>().SetTrigger("isHit");
                     enemyParent.GetChild(1).GetChild(0).GetChild(0).GetChild(0).GetComponent<Slider>().value = enemyHP;
                     enemyParent.GetChild(1).GetChild(0).GetChild(0).GetChild(0).GetChild(0).GetChild(1).GetComponent<TMP_Text>().text = enemyHP + "/" + enemyTotalHP;
-                    yield return new WaitForSeconds(0.5f);
-                    avatarParent.GetChild(1).GetChild(0).GetComponent<Animator>().SetBool("isAttack", false);
-                    enemyParent.GetChild(1).GetChild(0).GetComponent<Animator>().SetBool("isHit", false);
+                    yield return new WaitForSeconds(0.6f);
                     QuestionPanel.SetActive(false);
                     TimerPanel.SetActive(false);
                     ShowActionPanel();
@@ -838,32 +1537,23 @@ public class BattleManager : MonoBehaviour
         else if (isUltimate)
         {
             enemyHP -= 80;
-            if (enemyHP < 0)
+            if (enemyHP <= 0)
             {
                 enemyHP = 0;
                 EnemyCamera.Follow = enemyParent.GetChild(1).GetChild(0);
                 EnemyCamera.LookAt = enemyParent.GetChild(1).GetChild(0);
 
-                avatarParent.GetChild(1).GetChild(0).GetComponent<Animator>().SetBool("isUltimate", true);
+                avatarParent.GetChild(1).GetChild(0).GetComponent<Animator>().SetTrigger("isUltimate");
                 QuestionPanel.GetComponent<Animator>().SetBool("isClose", true);
                 TimerPanel.GetComponent<Animator>().SetBool("isClose", true);
                 if (usedAvatarName == "KumaTheWarriorCommon" || usedAvatarName == "KumaTheWarriorElite")
                 {
-                    if (usedAvatarName == "KumaTheWarriorCommon")
-                    {
-                        AudioBattleManager.instance.playHeavySwordSFX2();
-                    }
-                    else
-                    {
-                        AudioBattleManager.instance.playHeavySwordSFX3();
-                    }
-                    yield return new WaitForSeconds(2.6f);
+                    yield return new WaitForSeconds(3.5f);
                     StartCoroutine(EnemyIsDead());
                 }
                 else
                 {
-                    AudioBattleManager.instance.playSwordSFX2();
-                    yield return new WaitForSeconds(1.2f);
+                    yield return new WaitForSeconds(2f);
                     StartCoroutine(EnemyIsDead());
                 }
             }
@@ -871,24 +1561,14 @@ public class BattleManager : MonoBehaviour
             {
                 if (usedAvatarName == "KumaTheWarriorCommon" || usedAvatarName == "KumaTheWarriorElite")
                 {
-                    avatarParent.GetChild(1).GetChild(0).GetComponent<Animator>().SetBool("isUltimate", true);
+                    avatarParent.GetChild(1).GetChild(0).GetComponent<Animator>().SetTrigger("isUltimate");
                     QuestionPanel.GetComponent<Animator>().SetBool("isClose", true);
                     TimerPanel.GetComponent<Animator>().SetBool("isClose", true);
-                    if (usedAvatarName == "KumaTheWarriorCommon")
-                    {
-                        AudioBattleManager.instance.playHeavySwordSFX2();
-                    }
-                    else
-                    {
-                        AudioBattleManager.instance.playHeavySwordSFX3();
-                    }
                     yield return new WaitForSeconds(1.2f);
-                    enemyParent.GetChild(1).GetChild(0).GetComponent<Animator>().SetBool("isHit", true);
+                    enemyParent.GetChild(1).GetChild(0).GetComponent<Animator>().SetTrigger("isHit");
                     enemyParent.GetChild(1).GetChild(0).GetChild(0).GetChild(0).GetComponent<Slider>().value = enemyHP;
-                    enemyParent.GetChild(1).GetChild(0).GetChild(0).GetChild(0).GetChild(0).GetChild(1).GetComponent<TMP_Text>().text = enemyHP.ToString() + "/100";
-                    yield return new WaitForSeconds(1.8f);
-                    avatarParent.GetChild(1).GetChild(0).GetComponent<Animator>().SetBool("isUltimate", false);
-                    enemyParent.GetChild(1).GetChild(0).GetComponent<Animator>().SetBool("isHit", false);
+                    enemyParent.GetChild(1).GetChild(0).GetChild(0).GetChild(0).GetChild(0).GetChild(1).GetComponent<TMP_Text>().text = enemyHP + "/" + enemyTotalHP;
+                    yield return new WaitForSeconds(2.3f);
                     avatarParent.GetChild(1).GetChild(0).GetChild(3).gameObject.SetActive(false);
                     QuestionPanel.SetActive(false);
                     TimerPanel.SetActive(false);
@@ -896,17 +1576,14 @@ public class BattleManager : MonoBehaviour
                 }
                 else
                 {
-                    avatarParent.GetChild(1).GetChild(0).GetComponent<Animator>().SetBool("isUltimate", true);
+                    avatarParent.GetChild(1).GetChild(0).GetComponent<Animator>().SetTrigger("isUltimate");
                     QuestionPanel.GetComponent<Animator>().SetBool("isClose", true);
                     TimerPanel.GetComponent<Animator>().SetBool("isClose", true);
-                    AudioBattleManager.instance.playSwordSFX2();
                     yield return new WaitForSeconds(0.6f);
-                    enemyParent.GetChild(1).GetChild(0).GetComponent<Animator>().SetBool("isHit", true);
+                    enemyParent.GetChild(1).GetChild(0).GetComponent<Animator>().SetTrigger("isHit");
                     enemyParent.GetChild(1).GetChild(0).GetChild(0).GetChild(0).GetComponent<Slider>().value = enemyHP;
-                    enemyParent.GetChild(1).GetChild(0).GetChild(0).GetChild(0).GetChild(0).GetChild(1).GetComponent<TMP_Text>().text = enemyHP.ToString() + "/100";
-                    yield return new WaitForSeconds(1.5f);
-                    avatarParent.GetChild(1).GetChild(0).GetComponent<Animator>().SetBool("isUltimate", false);
-                    enemyParent.GetChild(1).GetChild(0).GetComponent<Animator>().SetBool("isHit", false);
+                    enemyParent.GetChild(1).GetChild(0).GetChild(0).GetChild(0).GetChild(0).GetChild(1).GetComponent<TMP_Text>().text = enemyHP + "/" + enemyTotalHP;
+                    yield return new WaitForSeconds(1.4f);
                     avatarParent.GetChild(1).GetChild(0).GetChild(3).gameObject.SetActive(false);
                     QuestionPanel.SetActive(false);
                     TimerPanel.SetActive(false);
@@ -919,13 +1596,11 @@ public class BattleManager : MonoBehaviour
     private IEnumerator EnemyIsDead()
     {
         enemyParent.GetChild(1).GetChild(0).GetComponent<Animator>().SetTrigger("isDead");
-        avatarParent.GetChild(1).GetChild(0).GetComponent<Animator>().SetBool("isAttack", false);
-        avatarParent.GetChild(1).GetChild(0).GetComponent<Animator>().SetBool("isUltimate", false);
         avatarParent.GetChild(1).GetChild(0).GetChild(3).gameObject.SetActive(false);
         cameraController.SetBool("Hero", false);
         cameraController.SetBool("Enemy", true);
         enemyParent.GetChild(1).GetChild(0).GetChild(0).GetChild(0).GetComponent<Slider>().value = enemyHP;
-        enemyParent.GetChild(1).GetChild(0).GetChild(0).GetChild(0).GetChild(0).GetChild(1).GetComponent<TMP_Text>().text = enemyHP.ToString() + "/100";
+        enemyParent.GetChild(1).GetChild(0).GetChild(0).GetChild(0).GetChild(0).GetChild(1).GetComponent<TMP_Text>().text = enemyHP + "/" + enemyTotalHP;
         yield return new WaitForSeconds(1.5f);
         if (state < 4)
         {
@@ -935,6 +1610,7 @@ public class BattleManager : MonoBehaviour
             yield return new WaitForSeconds(2f);
 
             cameraController.SetBool("Enemy", false);
+            cameraController.SetBool("Hero", true);
             Destroy(enemyParent.GetChild(1).gameObject);
             backgroundAnim.SetTrigger("state" + (state += 1).ToString());
 
@@ -946,6 +1622,7 @@ public class BattleManager : MonoBehaviour
             StartCoroutine(SpawnEnemy(state));
             yield return new WaitForSeconds(4f);
             avatarParent.GetChild(1).GetChild(0).GetComponent<Animator>().SetBool("isRun", false);
+            cameraController.SetBool("Hero", false);
             ShowActionPanel();
             startSeconds -= 15;
         }
@@ -963,75 +1640,328 @@ public class BattleManager : MonoBehaviour
     {
         EnemyCamera.Follow = enemyParent.GetChild(1).GetChild(0);
         EnemyCamera.LookAt = enemyParent.GetChild(1).GetChild(0);
-        cameraController.SetBool("Hero", false);
-        cameraController.SetBool("Enemy", true);
-        yield return new WaitForSeconds(1f);
+        avatarParent.GetChild(1).GetChild(0).GetChild(3).gameObject.SetActive(false);
 
-        enemyParent.GetChild(1).GetChild(0).GetComponent<Animator>().SetBool("isAttack", true);
-        QuestionPanel.GetComponent<Animator>().SetBool("isClose", true);
-        TimerPanel.GetComponent<Animator>().SetBool("isClose", true);
-        AudioBattleManager.instance.playSwordSFX1();
-        yield return new WaitForSeconds(0.6f);
-
-        avatarParent.GetChild(1).GetChild(0).GetComponent<Animator>().SetBool("isHit", true);
-        yield return new WaitForSeconds(1f);
-
-        StartCoroutine(ReduceHP(enemyDemage));
-        enemyParent.GetChild(1).GetChild(0).GetComponent<Animator>().SetBool("isAttack", false);
-        avatarParent.GetChild(1).GetChild(0).GetComponent<Animator>().SetBool("isHit", false);
-    }
-
-    private IEnumerator BossAttack()
-    {
-        EnemyCamera.Follow = enemyParent.GetChild(1).GetChild(0);
-        EnemyCamera.LookAt = enemyParent.GetChild(1).GetChild(0);
-        var attackSkill = Random.Range(1, 5);
-        if (attackSkill > 1)
+        if (enemyParent.GetChild(1).tag == "1HandedNorm")
         {
             cameraController.SetBool("Hero", false);
             cameraController.SetBool("Enemy", true);
-
-            enemyDemage = 30;
             yield return new WaitForSeconds(1f);
 
-            enemyParent.GetChild(1).GetChild(0).GetComponent<Animator>().SetBool("isAttack1", true);
+            enemyParent.GetChild(1).GetChild(0).GetComponent<Animator>().SetTrigger("isAttack");
             QuestionPanel.GetComponent<Animator>().SetBool("isClose", true);
             TimerPanel.GetComponent<Animator>().SetBool("isClose", true);
             yield return new WaitForSeconds(0.6f);
 
-            avatarParent.GetChild(1).GetChild(0).GetComponent<Animator>().SetBool("isHit", true);
+            avatarParent.GetChild(1).GetChild(0).GetComponent<Animator>().SetTrigger("isHit");
             yield return new WaitForSeconds(1f);
 
             StartCoroutine(ReduceHP(enemyDemage));
-            enemyParent.GetChild(1).GetChild(0).GetComponent<Animator>().SetBool("isAttack1", false);
-            avatarParent.GetChild(1).GetChild(0).GetComponent<Animator>().SetBool("isHit", false);
-            QuestionPanel.SetActive(false);
-            TimerPanel.SetActive(false);
-            ShowActionPanel();
         }
-        else
+        else if (enemyParent.GetChild(1).tag == "MageNorm")
         {
             cameraController.SetBool("Hero", false);
             cameraController.SetBool("Enemy", true);
-
-            enemyDemage = 40;
             yield return new WaitForSeconds(1f);
 
-            enemyParent.GetChild(1).GetChild(0).GetComponent<Animator>().SetBool("isAttack2", true);
+            enemyParent.GetChild(1).GetChild(0).GetComponent<Animator>().SetTrigger("isAttack");
             QuestionPanel.GetComponent<Animator>().SetBool("isClose", true);
             TimerPanel.GetComponent<Animator>().SetBool("isClose", true);
             yield return new WaitForSeconds(1f);
-
             cameraController.SetBool("Enemy", false);
-            avatarParent.GetChild(1).GetChild(0).GetComponent<Animator>().SetBool("isHit", true);
-            yield return new WaitForSeconds(1f);
+            cameraController.SetBool("Hero", true);
+            yield return new WaitForSeconds(0.4f);
+            avatarParent.GetChild(1).GetChild(0).GetComponent<Animator>().SetTrigger("isHit");
+
+            yield return new WaitForSeconds(1.6f);
 
             StartCoroutine(ReduceHP(enemyDemage));
-            enemyParent.GetChild(1).GetChild(0).GetComponent<Animator>().SetBool("isAttack2", false);
-            avatarParent.GetChild(1).GetChild(0).GetComponent<Animator>().SetBool("isHit", false);
-            QuestionPanel.SetActive(false);
-            TimerPanel.SetActive(false);
-            ShowActionPanel();
+        }
+        else if (enemyParent.GetChild(1).tag == "WolfmanBoss")
+        {
+            var attackSkill = Random.Range(1, 5);
+            if (attackSkill > 1)
+            {
+                cameraController.SetBool("Hero", false);
+                cameraController.SetBool("Enemy", true);
+
+                enemyDemage = 30;
+                yield return new WaitForSeconds(1f);
+
+                enemyParent.GetChild(1).GetChild(0).GetComponent<Animator>().SetTrigger("isAttack1");
+                QuestionPanel.GetComponent<Animator>().SetBool("isClose", true);
+                TimerPanel.GetComponent<Animator>().SetBool("isClose", true);
+                yield return new WaitForSeconds(0.6f);
+
+                avatarParent.GetChild(1).GetChild(0).GetComponent<Animator>().SetTrigger("isHit");
+                yield return new WaitForSeconds(1f);
+
+                StartCoroutine(ReduceHP(enemyDemage));
+                QuestionPanel.SetActive(false);
+                TimerPanel.SetActive(false);
+                ShowActionPanel();
+            }
+            else
+            {
+                cameraController.SetBool("Hero", false);
+                cameraController.SetBool("Enemy", true);
+
+                enemyDemage = 40;
+                yield return new WaitForSeconds(1f);
+
+                enemyParent.GetChild(1).GetChild(0).GetComponent<Animator>().SetTrigger("isAttack2");
+                QuestionPanel.GetComponent<Animator>().SetBool("isClose", true);
+                TimerPanel.GetComponent<Animator>().SetBool("isClose", true);
+                yield return new WaitForSeconds(1f);
+
+                cameraController.SetBool("Enemy", false);
+                avatarParent.GetChild(1).GetChild(0).GetComponent<Animator>().SetTrigger("isHit");
+                yield return new WaitForSeconds(1f);
+
+                StartCoroutine(ReduceHP(enemyDemage));
+                QuestionPanel.SetActive(false);
+                TimerPanel.SetActive(false);
+                ShowActionPanel();
+            }
+        }
+        else if (enemyParent.GetChild(1).tag == "SkeletonBoss")
+        {
+            var attackSkill = Random.Range(1, 5);
+            if (attackSkill > 1)
+            {
+                cameraController.SetBool("Hero", false);
+                cameraController.SetBool("Enemy", true);
+
+                enemyDemage = 30;
+                yield return new WaitForSeconds(1f);
+
+                enemyParent.GetChild(1).GetChild(0).GetComponent<Animator>().SetTrigger("isAttack1");
+                QuestionPanel.GetComponent<Animator>().SetBool("isClose", true);
+                TimerPanel.GetComponent<Animator>().SetBool("isClose", true);
+                yield return new WaitForSeconds(0.6f);
+
+                avatarParent.GetChild(1).GetChild(0).GetComponent<Animator>().SetTrigger("isHit");
+                yield return new WaitForSeconds(2.6f);
+
+                StartCoroutine(ReduceHP(enemyDemage));
+                QuestionPanel.SetActive(false);
+                TimerPanel.SetActive(false);
+                ShowActionPanel();
+            }
+            else
+            {
+                cameraController.SetBool("Hero", false);
+                cameraController.SetBool("Enemy", true);
+
+                enemyDemage = 40;
+                yield return new WaitForSeconds(1f);
+
+                enemyParent.GetChild(1).GetChild(0).GetComponent<Animator>().SetTrigger("isAttack2");
+                QuestionPanel.GetComponent<Animator>().SetBool("isClose", true);
+                TimerPanel.GetComponent<Animator>().SetBool("isClose", true);
+                yield return new WaitForSeconds(0.4f);
+
+                avatarParent.GetChild(1).GetChild(0).GetComponent<Animator>().SetTrigger("isHit");
+                yield return new WaitForSeconds(2.4f);
+                cameraController.SetBool("Enemy", false);
+                cameraController.SetBool("Hero", true);
+                yield return new WaitForSeconds(0.8f);
+                avatarParent.GetChild(1).GetChild(0).GetComponent<Animator>().SetTrigger("isHit");
+                yield return new WaitForSeconds(2f);
+                cameraController.SetBool("Hero", false);
+
+
+                StartCoroutine(ReduceHP(enemyDemage));
+                QuestionPanel.SetActive(false);
+                TimerPanel.SetActive(false);
+                ShowActionPanel();
+            }
+        }
+        if (enemyParent.GetChild(1).tag == "Demon1")
+        {
+            var attackSkill = Random.Range(1, 3);
+            if (attackSkill == 1)
+            {
+                cameraController.SetBool("Hero", false);
+                cameraController.SetBool("Enemy", true);
+                yield return new WaitForSeconds(1f);
+
+                enemyParent.GetChild(1).GetChild(0).GetComponent<Animator>().SetTrigger("isAttack1");
+                QuestionPanel.GetComponent<Animator>().SetBool("isClose", true);
+                TimerPanel.GetComponent<Animator>().SetBool("isClose", true);
+                yield return new WaitForSeconds(0.6f);
+
+                avatarParent.GetChild(1).GetChild(0).GetComponent<Animator>().SetTrigger("isHit");
+                yield return new WaitForSeconds(1f);
+
+                StartCoroutine(ReduceHP(enemyDemage));
+            }
+            else
+            {
+                cameraController.SetBool("Hero", false);
+                cameraController.SetBool("Enemy", true);
+                yield return new WaitForSeconds(1f);
+
+                enemyParent.GetChild(1).GetChild(0).GetComponent<Animator>().SetTrigger("isAttack2");
+                QuestionPanel.GetComponent<Animator>().SetBool("isClose", true);
+                TimerPanel.GetComponent<Animator>().SetBool("isClose", true);
+                yield return new WaitForSeconds(0.6f);
+
+                avatarParent.GetChild(1).GetChild(0).GetComponent<Animator>().SetTrigger("isHit");
+                yield return new WaitForSeconds(1f);
+
+                StartCoroutine(ReduceHP(enemyDemage));
+            }
+        }
+        if (enemyParent.GetChild(1).tag == "Demon2")
+        {
+            var attackSkill = Random.Range(1, 3);
+            if (attackSkill == 1)
+            {
+                cameraController.SetBool("Hero", false);
+                cameraController.SetBool("Enemy", true);
+                yield return new WaitForSeconds(1f);
+
+                enemyParent.GetChild(1).GetChild(0).GetComponent<Animator>().SetTrigger("isAttack1");
+                QuestionPanel.GetComponent<Animator>().SetBool("isClose", true);
+                TimerPanel.GetComponent<Animator>().SetBool("isClose", true);
+                yield return new WaitForSeconds(0.4f);
+
+                avatarParent.GetChild(1).GetChild(0).GetComponent<Animator>().SetTrigger("isHit");
+                yield return new WaitForSeconds(0.6f);
+
+                StartCoroutine(ReduceHP(enemyDemage));
+            }
+            else
+            {
+                cameraController.SetBool("Hero", false);
+                cameraController.SetBool("Enemy", true);
+                yield return new WaitForSeconds(1f);
+
+                enemyParent.GetChild(1).GetChild(0).GetComponent<Animator>().SetTrigger("isAttack2");
+                QuestionPanel.GetComponent<Animator>().SetBool("isClose", true);
+                TimerPanel.GetComponent<Animator>().SetBool("isClose", true);
+                yield return new WaitForSeconds(0.6f);
+
+                avatarParent.GetChild(1).GetChild(0).GetComponent<Animator>().SetTrigger("isHit");
+                yield return new WaitForSeconds(1.4f);
+
+                StartCoroutine(ReduceHP(enemyDemage));
+            }
+        }
+        if (enemyParent.GetChild(1).tag == "Demon3")
+        {
+            var attackSkill = Random.Range(1, 3);
+            if (attackSkill == 1)
+            {
+                cameraController.SetBool("Hero", false);
+                cameraController.SetBool("Enemy", true);
+                yield return new WaitForSeconds(1f);
+
+                enemyParent.GetChild(1).GetChild(0).GetComponent<Animator>().SetTrigger("isAttack1");
+                QuestionPanel.GetComponent<Animator>().SetBool("isClose", true);
+                TimerPanel.GetComponent<Animator>().SetBool("isClose", true);
+                yield return new WaitForSeconds(1f);
+                cameraController.SetBool("Enemy", false);
+                cameraController.SetBool("Hero", true);
+                yield return new WaitForSeconds(0.4f);
+                avatarParent.GetChild(1).GetChild(0).GetComponent<Animator>().SetTrigger("isHit");
+
+                yield return new WaitForSeconds(1.6f);
+
+                StartCoroutine(ReduceHP(enemyDemage));
+            }
+            else
+            {
+                cameraController.SetBool("Hero", false);
+                cameraController.SetBool("Enemy", true);
+                yield return new WaitForSeconds(1f);
+
+                enemyParent.GetChild(1).GetChild(0).GetComponent<Animator>().SetTrigger("isAttack2");
+                QuestionPanel.GetComponent<Animator>().SetBool("isClose", true);
+                TimerPanel.GetComponent<Animator>().SetBool("isClose", true);
+                yield return new WaitForSeconds(1f);
+                cameraController.SetBool("Enemy", false);
+                cameraController.SetBool("Hero", true);
+                yield return new WaitForSeconds(0.4f);
+                avatarParent.GetChild(1).GetChild(0).GetComponent<Animator>().SetTrigger("isHit");
+
+                yield return new WaitForSeconds(2f);
+
+                StartCoroutine(ReduceHP(enemyDemage));
+            }
+        }
+        if (enemyParent.GetChild(1).tag == "Demon4")
+        {
+            var attackSkill = Random.Range(1, 3);
+            if (attackSkill == 1)
+            {
+                cameraController.SetBool("Hero", false);
+                cameraController.SetBool("Enemy", true);
+                yield return new WaitForSeconds(1f);
+
+                enemyParent.GetChild(1).GetChild(0).GetComponent<Animator>().SetTrigger("isAttack1");
+                QuestionPanel.GetComponent<Animator>().SetBool("isClose", true);
+                TimerPanel.GetComponent<Animator>().SetBool("isClose", true);
+                yield return new WaitForSeconds(0.6f);
+
+                avatarParent.GetChild(1).GetChild(0).GetComponent<Animator>().SetTrigger("isHit");
+                yield return new WaitForSeconds(2.4f);
+
+                StartCoroutine(ReduceHP(enemyDemage));
+            }
+            else
+            {
+                cameraController.SetBool("Hero", false);
+                cameraController.SetBool("Enemy", true);
+                yield return new WaitForSeconds(1f);
+
+                enemyParent.GetChild(1).GetChild(0).GetComponent<Animator>().SetTrigger("isAttack2");
+                QuestionPanel.GetComponent<Animator>().SetBool("isClose", true);
+                TimerPanel.GetComponent<Animator>().SetBool("isClose", true);
+                yield return new WaitForSeconds(1.2f);
+
+                avatarParent.GetChild(1).GetChild(0).GetComponent<Animator>().SetTrigger("isHit");
+                yield return new WaitForSeconds(2.3f);
+
+                StartCoroutine(ReduceHP(enemyDemage));
+            }
+        }
+        if (enemyParent.GetChild(1).tag == "DemonBoss")
+        {
+            var attackSkill = Random.Range(1, 3);
+            if (attackSkill == 1)
+            {
+                cameraController.SetBool("Hero", false);
+                cameraController.SetBool("Enemy", true);
+                yield return new WaitForSeconds(1f);
+
+                enemyParent.GetChild(1).GetChild(0).GetComponent<Animator>().SetTrigger("isAttack1");
+                QuestionPanel.GetComponent<Animator>().SetBool("isClose", true);
+                TimerPanel.GetComponent<Animator>().SetBool("isClose", true);
+                yield return new WaitForSeconds(0.6f);
+
+                avatarParent.GetChild(1).GetChild(0).GetComponent<Animator>().SetTrigger("isHit");
+                yield return new WaitForSeconds(2.4f);
+
+                StartCoroutine(ReduceHP(enemyDemage));
+            }
+            else
+            {
+                cameraController.SetBool("Hero", false);
+                cameraController.SetBool("Enemy", true);
+                yield return new WaitForSeconds(1f);
+
+                enemyParent.GetChild(1).GetChild(0).GetComponent<Animator>().SetTrigger("isAttack2");
+                QuestionPanel.GetComponent<Animator>().SetBool("isClose", true);
+                TimerPanel.GetComponent<Animator>().SetBool("isClose", true);
+                yield return new WaitForSeconds(1.2f);
+
+                avatarParent.GetChild(1).GetChild(0).GetComponent<Animator>().SetTrigger("isHit");
+                yield return new WaitForSeconds(2.3f);
+
+                StartCoroutine(ReduceHP(enemyDemage));
+            }
         }
     }
 }

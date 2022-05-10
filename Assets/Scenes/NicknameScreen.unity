@@ -539,6 +539,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nicknameOutput: {fileID: 988126350}
   nicknameInput: {fileID: 791649055}
+  setNicknameButton: {fileID: 227275954}
   homeTrack: {fileID: 8300000, guid: 979c5027ee63f8049b39c98df71f2ecd, type: 3}
 --- !u!4 &675886042
 Transform:

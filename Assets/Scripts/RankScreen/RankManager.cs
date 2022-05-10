@@ -33,6 +33,8 @@ public class RankManager : MonoBehaviour
     private TMP_Text currentUserLevelText;
     [SerializeField]
     private Image profileImage;
+    [SerializeField]
+    private List<Button> navbarButtons;
     [Space(5)]
 
     [Header("Audio")]
@@ -62,6 +64,7 @@ public class RankManager : MonoBehaviour
     private string currentLV;
     private string currentUsername;
     private string currentTotalLP;
+    private float ButtonReactivateDelay = 1.4f;
 
     private void Awake()
     {
@@ -200,6 +203,11 @@ public class RankManager : MonoBehaviour
 
     public void lessonsButtonClicked()
     {
+        foreach (Button btn in navbarButtons)
+        {
+            btn.interactable = false;
+            StartCoroutine(EnableButtonAfterDelay(btn, ButtonReactivateDelay));
+        }
         SwapTrackToLessonsScreen();
         GameManager.instance.ChangeScene(3);
     }
@@ -211,6 +219,11 @@ public class RankManager : MonoBehaviour
 
     public void profileButtonClicked()
     {
+        foreach (Button btn in navbarButtons)
+        {
+            btn.interactable = false;
+            StartCoroutine(EnableButtonAfterDelay(btn, ButtonReactivateDelay));
+        }
         SwapTrackToProfileScreen();
         GameManager.instance.ChangeScene(8);
     }
@@ -222,6 +235,11 @@ public class RankManager : MonoBehaviour
 
     public void shopButtonClicked()
     {
+        foreach (Button btn in navbarButtons)
+        {
+            btn.interactable = false;
+            StartCoroutine(EnableButtonAfterDelay(btn, ButtonReactivateDelay));
+        }
         SwapTrackToShopScreen();
         GameManager.instance.ChangeScene(9);
     }
@@ -234,6 +252,11 @@ public class RankManager : MonoBehaviour
 
     public void homeButtonClicked()
     {
+        foreach (Button btn in navbarButtons)
+        {
+            btn.interactable = false;
+            StartCoroutine(EnableButtonAfterDelay(btn, ButtonReactivateDelay));
+        }
         SwapTrackToHome();
         GameManager.instance.ChangeScene(2);
     }
@@ -241,5 +264,11 @@ public class RankManager : MonoBehaviour
     private void SwapTrackToHome()
     {
         AudioManager.instance.SwapTrack(HomeScreenTrack);
+    }
+
+    IEnumerator EnableButtonAfterDelay(Button button, float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        button.interactable = true;
     }
 }

@@ -1,5 +1,12 @@
 {
   "dependencies": {
+    "com.coffee.ui-particle": {
+      "version": "https://github.com/mob-sakai/ParticleEffectForUGUI.git#3.3.8",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "f43d4c38eaa9c804a72f98833057dbc9dbd8b015"
+    },
     "com.unity.2d.animation": {
       "version": "5.1.0",
       "depth": 0,
@@ -71,6 +78,24 @@
       "depth": 0,
       "source": "builtin",
       "dependencies": {}
+    },
+    "com.unity.adaptiveperformance": {
+      "version": "2.2.3",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.subsystemregistration": "1.1.0"
+      },
+      "url": "https://packages.unity.com"
+    },
+    "com.unity.adaptiveperformance.samsung.android": {
+      "version": "2.2.2",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.adaptiveperformance": "2.2.2"
+      },
+      "url": "https://packages.unity.com"
     },
     "com.unity.cinemachine": {
       "version": "2.8.4",
@@ -193,6 +218,15 @@
       "dependencies": {
         "com.unity.render-pipelines.core": "10.8.1",
         "com.unity.searcher": "4.3.2"
+      },
+      "url": "https://packages.unity.com"
+    },
+    "com.unity.subsystemregistration": {
+      "version": "1.1.0",
+      "depth": 1,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.modules.subsystems": "1.0.0"
       },
       "url": "https://packages.unity.com"
     },

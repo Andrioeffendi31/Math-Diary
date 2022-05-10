@@ -1,11 +1,14 @@
 {
   "dependencies": {
+    "com.coffee.ui-particle": "https://github.com/mob-sakai/ParticleEffectForUGUI.git#3.3.8",
     "com.unity.2d.animation": "5.1.0",
     "com.unity.2d.pixel-perfect": "4.0.1",
     "com.unity.2d.psdimporter": "4.2.0",
     "com.unity.2d.sprite": "1.0.0",
     "com.unity.2d.spriteshape": "5.2.0",
     "com.unity.2d.tilemap": "1.0.0",
+    "com.unity.adaptiveperformance": "2.2.3",
+    "com.unity.adaptiveperformance.samsung.android": "2.2.2",
     "com.unity.cinemachine": "2.8.4",
     "com.unity.collab-proxy": "1.15.12",
     "com.unity.device-simulator": "3.0.3-preview",

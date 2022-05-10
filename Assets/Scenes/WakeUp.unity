@@ -991,7 +991,7 @@ MonoBehaviour:
   - Hmmm.....
   - Seperti yang ku duga itu hanya mimpi...
   - Lain kali, Aku tidak akan mengerjakannya hingga larut malam
-  typingSpeed: 0.1
+  typingSpeed: 0.05
   nextButton: {fileID: 2017660966}
   nextIcon: {fileID: 1724880110}
   textDisplayAnim: {fileID: 157672181}

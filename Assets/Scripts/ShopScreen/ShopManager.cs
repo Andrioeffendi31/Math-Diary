@@ -51,6 +51,8 @@ public class ShopManager : MonoBehaviour
     private Transform rewardSpawn2;
     [SerializeField]
     private List<GameObject> rewardList = new List<GameObject>();
+    [SerializeField]
+    private List<Button> navbarButtons;
     [Space(5)]
 
     [Header("Audio")]
@@ -69,6 +71,8 @@ public class ShopManager : MonoBehaviour
     private string totalGold;
     private string totalSilver;
     private bool UsingGold;
+
+    private float ButtonReactivateDelay = 1.4f;
 
     private void Awake()
     {
@@ -551,6 +555,11 @@ public class ShopManager : MonoBehaviour
 
     public void homeButtonClicked()
     {
+        foreach (Button btn in navbarButtons)
+        {
+            btn.interactable = false;
+            StartCoroutine(EnableButtonAfterDelay(btn, ButtonReactivateDelay));
+        }
         SwapTrackToHome();
         GameManager.instance.ChangeScene(2);
     }
@@ -561,6 +570,11 @@ public class ShopManager : MonoBehaviour
     }
     public void lessonsButtonClicked()
     {
+        foreach (Button btn in navbarButtons)
+        {
+            btn.interactable = false;
+            StartCoroutine(EnableButtonAfterDelay(btn, ButtonReactivateDelay));
+        }
         SwapTrackToLessonsScreen();
         GameManager.instance.ChangeScene(3);
     }
@@ -572,6 +586,11 @@ public class ShopManager : MonoBehaviour
 
     public void rankButtonClicked()
     {
+        foreach (Button btn in navbarButtons)
+        {
+            btn.interactable = false;
+            StartCoroutine(EnableButtonAfterDelay(btn, ButtonReactivateDelay));
+        }
         SwapTrackToRankScreen();
         GameManager.instance.ChangeScene(7);
     }
@@ -583,6 +602,11 @@ public class ShopManager : MonoBehaviour
 
     public void profileButtonClicked()
     {
+        foreach (Button btn in navbarButtons)
+        {
+            btn.interactable = false;
+            StartCoroutine(EnableButtonAfterDelay(btn, ButtonReactivateDelay));
+        }
         SwapTrackToProfileScreen();
         GameManager.instance.ChangeScene(8);
     }
@@ -590,5 +614,11 @@ public class ShopManager : MonoBehaviour
     private void SwapTrackToProfileScreen()
     {
         AudioManager.instance.SwapTrack(ProfileScreenTrack);
+    }
+
+    IEnumerator EnableButtonAfterDelay(Button button, float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        button.interactable = true;
     }
 }

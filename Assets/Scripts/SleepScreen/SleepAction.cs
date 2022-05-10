@@ -12,6 +12,8 @@ public class SleepAction : MonoBehaviour
     private GameObject DialogueBox;
     [SerializeField]
     private Animator dialogueBoxAnim;
+    [SerializeField]
+    private AudioClip BattleScreenTrack;
 
     void Start()
     {
@@ -39,8 +41,31 @@ public class SleepAction : MonoBehaviour
         Transition2.SetBool("isSleep", true);
         Transition3.SetBool("isSleep", true);
         yield return new WaitForSeconds(2f);
-        AudioManager.instance.FadeOutBGM();
-        GameManager.instance.ChangeScene(12);
+        if (StageManager.selectedStage == "unit1_section1" || StageManager.selectedStage == "unit1_section2")
+        {
+            AudioManager.instance.FadeOutBGM();
+            GameManager.instance.ChangeScene(12);
+        }
+        else if (StageManager.selectedStage == "unit2_section1")
+        {
+            AudioManager.instance.SwapTrack(BattleScreenTrack);
+            GameManager.instance.ChangeScene(17);
+        }
+        else if (StageManager.selectedStage == "unit2_section2")
+        {
+            AudioManager.instance.SwapTrack(BattleScreenTrack);
+            GameManager.instance.ChangeScene(18);
+        }
+        else if (StageManager.selectedStage == "unit3_section1")
+        {
+            AudioManager.instance.SwapTrack(BattleScreenTrack);
+            GameManager.instance.ChangeScene(19);
+        }
+        else if (StageManager.selectedStage == "unit3_section2")
+        {
+            AudioManager.instance.SwapTrack(BattleScreenTrack);
+            GameManager.instance.ChangeScene(20);
+        }
         StopAllCoroutines();
     }
 }

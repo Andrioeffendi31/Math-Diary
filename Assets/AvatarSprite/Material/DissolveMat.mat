@@ -84,6 +84,7 @@ Material:
     - Vector1_2c2b333d9d0f4a5bbce450d7e13e958b: 30
     - Vector1_4e6b2f58c54a404c81a4ed15b056382e: 0
     - Vector1_833b5d8121f640939bb5804324eda179: 0.5
+    - _Cutoff: 0.5
     - _DissolveAmount: 0.5
     - _DissolveLine: 0.1
     - _DissolveScale: 1

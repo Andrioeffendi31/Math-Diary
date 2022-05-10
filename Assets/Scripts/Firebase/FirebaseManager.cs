@@ -91,6 +91,15 @@ public class FirebaseManager : MonoBehaviour
     private Button loginButton;
     [SerializeField]
     private Button loginButtonSec;
+    [SerializeField]
+    private Button loginButton2;
+    [SerializeField]
+    private Button loginButtonSec2;
+    [SerializeField]
+    private Button registerButton;
+    [SerializeField]
+    private Button registerButtonSec;
+    private float ButtonReactivateDelay = 2.4f;
 
     private void Awake()
     {
@@ -109,11 +118,15 @@ public class FirebaseManager : MonoBehaviour
 
     public void Login()
     {
+        loginButton.interactable = false;
+        StartCoroutine(EnableButtonAfterDelay(loginButton, ButtonReactivateDelay));
         StartCoroutine(CheckAndFixDepenencies());
     }
 
     public void LoginSec()
     {
+        loginButtonSec.interactable = false;
+        StartCoroutine(EnableButtonAfterDelay(loginButtonSec, ButtonReactivateDelay));
         StartCoroutine(CheckAndFixDepenenciesSec());
     }
 
@@ -262,21 +275,29 @@ public class FirebaseManager : MonoBehaviour
 
     public void LoginButton()
     {
+        loginButton2.interactable = false;
+        StartCoroutine(EnableButtonAfterDelay(loginButton2, ButtonReactivateDelay));
         StartCoroutine(LoginLogic(loginEmail.text, loginPassword.text));
     }
 
     public void LoginButtonSec()
     {
+        loginButtonSec2.interactable = false;
+        StartCoroutine(EnableButtonAfterDelay(loginButtonSec2, ButtonReactivateDelay));
         StartCoroutine(LoginLogicSec(loginEmailSec.text, loginPasswordSec.text));
     }
 
     public void RegisterButton()
     {
+        registerButton.interactable = false;
+        StartCoroutine(EnableButtonAfterDelay(registerButton, ButtonReactivateDelay));
         StartCoroutine(RegisterLogic(registerEmail.text, registerPassword.text, registerConfirmPassword.text));
     }
 
     public void RegisterButtonSec()
     {
+        registerButtonSec.interactable = false;
+        StartCoroutine(EnableButtonAfterDelay(registerButtonSec, ButtonReactivateDelay));
         StartCoroutine(RegisterLogicSec(registerEmailSec.text, registerPasswordSec.text, registerConfirmPasswordSec.text));
     }
 
@@ -780,56 +801,36 @@ public class FirebaseManager : MonoBehaviour
         }
         else
         {
-            UserProfile profile = new UserProfile
+            if (user.IsEmailVerified)
             {
-                DisplayName = "",
+                var GetUsernameTask = DBreference.Child("users").Child(user.UserId).Child("username").GetValueAsync();
 
-                //TODO: Give Profile Default Photo
-            };
+                yield return new WaitUntil(() => GetUsernameTask.IsCompleted);
 
-            user = auth.CurrentUser;
-            var defaultUserTask = user.UpdateUserProfileAsync(profile);
-
-            yield return new WaitUntil(predicate: () => defaultUserTask.IsCompleted);
-
-            if (defaultUserTask.Exception != null)
-            {
-                user.DeleteAsync();
-                FirebaseException firebaseException = (FirebaseException)defaultUserTask.Exception.GetBaseException();
-                AuthError error = (AuthError)firebaseException.ErrorCode;
-                string output = "Unknown Error, Please Try Again";
-
-                switch (error)
+                if (GetUsernameTask.Exception != null)
                 {
-                    case AuthError.Cancelled:
-                        output = "Update User Cancelled.";
-                        break;
-                    case AuthError.SessionExpired:
-                        output = "Session Expired.";
-                        break;
+                    Debug.LogError(GetUsernameTask.Exception.Message);
                 }
-                registerOutputTextSec.text = output;
-            }
-            else
-            {
-                if (user.IsEmailVerified)
+                else
                 {
-                    yield return new WaitForSeconds(1f);
-                    if (user.DisplayName == null || user.DisplayName.Length == 0)
+                    Debug.Log("Ini hasilnya :" + GetUsernameTask.Result.Value);
+                    if (GetUsernameTask.Result.Value == null)
                     {
                         GameManager.instance.ChangeScene(1);
                     }
                     else
                     {
+                        SwapTrackToHome();
                         GameManager.instance.ChangeScene(2);
                     }
                 }
-                else
-                {
-
-                    StartCoroutine(SendVerificationEmail());
-                }
             }
+            else
+            {
+
+                StartCoroutine(SendVerificationEmail());
+            }
+
         }
     }
 
@@ -854,5 +855,11 @@ public class FirebaseManager : MonoBehaviour
     public void SwapTrackToHome()
     {
         AudioManager.instance.SwapTrack(homeTrack);
+    }
+
+    IEnumerator EnableButtonAfterDelay(Button button, float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        button.interactable = true;
     }
 }

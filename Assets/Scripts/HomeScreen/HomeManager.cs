@@ -42,6 +42,8 @@ public class HomeManager : MonoBehaviour
     private List<Sprite> achievementSprite;
     [SerializeField]
     private GameObject AchievementPopup;
+    [SerializeField]
+    private List<Button> navbarButtons;
     [Space(5)]
 
     [Header("Audio")]
@@ -58,7 +60,7 @@ public class HomeManager : MonoBehaviour
     [SerializeField]
     private AudioClip StageSelectionTrack;
 
-    private HomeManager instance;
+    public static HomeManager instance;
     private string photoURL;
     private string username;
     private int totalLP;
@@ -68,6 +70,7 @@ public class HomeManager : MonoBehaviour
     private int currentXPValue;
     private int XPToNextLV;
     private int userRank;
+    private float ButtonReactivateDelay = 1.4f;
 
     private void Awake()
     {
@@ -189,7 +192,6 @@ public class HomeManager : MonoBehaviour
                                     StartCoroutine(LoadProfilePic(photoURI.ToString()));
                                     StartCoroutine(LoadExpBar(currentXPValue, XPToNextLV));
                                     StartCoroutine(GetUserRank());
-                                    StartCoroutine(AchievementCheck(totalLP, userRank));
 
                                     usernameText.text = username;
                                     totalLPText.text = totalLP + " LP";
@@ -245,6 +247,8 @@ public class HomeManager : MonoBehaviour
                         Debug.Log("The achievement to get 1000 LP has been added");
                         achievementImage.sprite = achievementSprite[0];
                         openAchievementPopup();
+                        StartCoroutine(pushAchievementMail("Earned 1000 LP", 600));
+                        StartCoroutine(MailboxManager.instance.GetMail());
                     }
                 }
             }
@@ -264,6 +268,8 @@ public class HomeManager : MonoBehaviour
                         Debug.Log("The achievement to get 5000 LP has been added");
                         achievementImage.sprite = achievementSprite[1];
                         openAchievementPopup();
+                        StartCoroutine(pushAchievementMail("Earned 5000 LP", 800));
+                        StartCoroutine(MailboxManager.instance.GetMail());
                     }
                 }
             }
@@ -283,6 +289,8 @@ public class HomeManager : MonoBehaviour
                         Debug.Log("The achievement to get 10000 LP has been added");
                         achievementImage.sprite = achievementSprite[2];
                         openAchievementPopup();
+                        StartCoroutine(pushAchievementMail("Earned 10000 LP", 1000));
+                        StartCoroutine(MailboxManager.instance.GetMail());
                     }
                 }
             }
@@ -302,6 +310,8 @@ public class HomeManager : MonoBehaviour
                         Debug.Log("The achievement to get 20000 LP has been added");
                         achievementImage.sprite = achievementSprite[3];
                         openAchievementPopup();
+                        StartCoroutine(pushAchievementMail("Earned 20000 LP", 1500));
+                        StartCoroutine(MailboxManager.instance.GetMail());
                     }
                 }
             }
@@ -321,6 +331,8 @@ public class HomeManager : MonoBehaviour
                         Debug.Log("The achievement to get 40000 LP has been added");
                         achievementImage.sprite = achievementSprite[4];
                         openAchievementPopup();
+                        StartCoroutine(pushAchievementMail("Earned 40000 LP", 2000));
+                        StartCoroutine(MailboxManager.instance.GetMail());
                     }
                 }
             }
@@ -340,6 +352,8 @@ public class HomeManager : MonoBehaviour
                         Debug.Log("The achievement to get 100000 LP has been added");
                         achievementImage.sprite = achievementSprite[5];
                         openAchievementPopup();
+                        StartCoroutine(pushAchievementMail("Earned 100000 LP", 5000));
+                        StartCoroutine(MailboxManager.instance.GetMail());
                     }
                 }
             }
@@ -360,6 +374,8 @@ public class HomeManager : MonoBehaviour
                         Debug.Log("The achievement for reaching top 50 has been added");
                         achievementImage.sprite = achievementSprite[6];
                         openAchievementPopup();
+                        StartCoroutine(pushAchievementMail("Reached the top 50", 800));
+                        StartCoroutine(MailboxManager.instance.GetMail());
                     }
                 }
             }
@@ -376,6 +392,8 @@ public class HomeManager : MonoBehaviour
                     }
                     else
                     {
+                        StartCoroutine(pushAchievementMail("Reached the top 50", 800));
+                        StartCoroutine(MailboxManager.instance.GetMail());
                         Debug.Log("The achievement for reaching top 50 has been added");
                         achievementImage.sprite = achievementSprite[6];
 
@@ -390,11 +408,34 @@ public class HomeManager : MonoBehaviour
                             }
                             else
                             {
+                                StartCoroutine(pushAchievementMail("Reached the top 10", 1500));
+                                StartCoroutine(MailboxManager.instance.GetMail());
                                 Debug.Log("The achievement for reaching top 10 has been added");
                                 achievementImage.sprite = achievementSprite[7];
                             }
                         }
                         openAchievementPopup();
+                    }
+                }
+                else
+                {
+                    if (!achievementList.Contains("Top10"))
+                    {
+                        var UpdateAchievementsTask = DBreference.Child("achievements").Child(user.UserId).Push().SetValueAsync("Top10");
+                        yield return new WaitUntil(() => UpdateAchievementsTask.IsCompleted);
+
+                        if (UpdateAchievementsTask.Exception != null)
+                        {
+                            Debug.LogError(UpdateAchievementsTask.Exception.Message);
+                        }
+                        else
+                        {
+                            StartCoroutine(pushAchievementMail("Reached the top 10", 1500));
+                            StartCoroutine(MailboxManager.instance.GetMail());
+                            Debug.Log("The achievement for reaching top 10 has been added");
+                            achievementImage.sprite = achievementSprite[7];
+                            openAchievementPopup();
+                        }
                     }
                 }
             }
@@ -411,44 +452,68 @@ public class HomeManager : MonoBehaviour
                     }
                     else
                     {
+                        StartCoroutine(pushAchievementMail("Reached the top 50", 800));
+                        StartCoroutine(MailboxManager.instance.GetMail());
                         Debug.Log("The achievement for reaching top 50 has been added");
                         achievementImage.sprite = achievementSprite[6];
+                        openAchievementPopup();
+                    }
+                }
 
-                        if (!achievementList.Contains("Top10"))
-                        {
-                            UpdateAchievementsTask = DBreference.Child("achievements").Child(user.UserId).Push().SetValueAsync("Top10");
-                            yield return new WaitUntil(() => UpdateAchievementsTask.IsCompleted);
+                if (!achievementList.Contains("Top10"))
+                {
+                    var UpdateAchievementsTask = DBreference.Child("achievements").Child(user.UserId).Push().SetValueAsync("Top10");
+                    yield return new WaitUntil(() => UpdateAchievementsTask.IsCompleted);
 
-                            if (UpdateAchievementsTask.Exception != null)
-                            {
-                                Debug.LogError(UpdateAchievementsTask.Exception.Message);
-                            }
-                            else
-                            {
-                                Debug.Log("The achievement for reaching top 10 has been added");
-                                achievementImage.sprite = achievementSprite[7];
+                    if (UpdateAchievementsTask.Exception != null)
+                    {
+                        Debug.LogError(UpdateAchievementsTask.Exception.Message);
+                    }
+                    else
+                    {
+                        StartCoroutine(pushAchievementMail("Reached the top 10", 1500));
+                        StartCoroutine(MailboxManager.instance.GetMail());
+                        Debug.Log("The achievement for reaching top 10 has been added");
+                        achievementImage.sprite = achievementSprite[7];
+                        openAchievementPopup();
+                    }
+                }
 
-                                if (!achievementList.Contains("Top3"))
-                                {
-                                    UpdateAchievementsTask = DBreference.Child("achievements").Child(user.UserId).Push().SetValueAsync("Top3");
-                                    yield return new WaitUntil(() => UpdateAchievementsTask.IsCompleted);
+                if (!achievementList.Contains("Top3"))
+                {
+                    var UpdateAchievementsTask = DBreference.Child("achievements").Child(user.UserId).Push().SetValueAsync("Top3");
+                    yield return new WaitUntil(() => UpdateAchievementsTask.IsCompleted);
 
-                                    if (UpdateAchievementsTask.Exception != null)
-                                    {
-                                        Debug.LogError(UpdateAchievementsTask.Exception.Message);
-                                    }
-                                    else
-                                    {
-                                        Debug.Log("The achievement for reaching top 3 has been added");
-                                        achievementImage.sprite = achievementSprite[8];
-                                    }
-                                }
-                            }
-                        }
+                    if (UpdateAchievementsTask.Exception != null)
+                    {
+                        Debug.LogError(UpdateAchievementsTask.Exception.Message);
+                    }
+                    else
+                    {
+                        StartCoroutine(pushAchievementMail("Reached the top 3", 3000));
+                        StartCoroutine(MailboxManager.instance.GetMail());
+                        Debug.Log("The achievement for reaching top 3 has been added");
+                        achievementImage.sprite = achievementSprite[8];
                         openAchievementPopup();
                     }
                 }
             }
+        }
+    }
+
+    private IEnumerator pushAchievementMail(string achievementName, int rewardAmount)
+    {
+        var MailKey = DBreference.Child("mails").Child(user.UserId).Push().Key;
+        var MailTask = DBreference.Child("mails").Child(user.UserId).Child(MailKey).Child("Title").SetValueAsync(achievementName);
+        MailTask = DBreference.Child("mails").Child(user.UserId).Child(MailKey).Child("Desc").SetValueAsync("Congratulations!, you have " + achievementName + ". Keep improving your math skills! This is a reward for your achievements.");
+        MailTask = DBreference.Child("mails").Child(user.UserId).Child(MailKey).Child("Date").SetValueAsync(DateTime.Now.ToString());
+        MailTask = DBreference.Child("mails").Child(user.UserId).Child(MailKey).Child("Reward").SetValueAsync(rewardAmount);
+        MailTask = DBreference.Child("mails").Child(user.UserId).Child(MailKey).Child("Read").SetValueAsync(0);
+
+        yield return new WaitUntil(() => MailTask.IsCompleted);
+        if (MailTask.Exception != null)
+        {
+            Debug.LogError(MailTask.Exception.Message);
         }
     }
 
@@ -541,11 +606,17 @@ public class HomeManager : MonoBehaviour
             userRank = rankList.FindIndex(x => x.Item3 == user.UserId) + 1;
             userRankText.text = "#" + userRank;
             Debug.Log("User Rank: " + userRank);
+            StartCoroutine(AchievementCheck(totalLP, userRank));
         }
     }
 
     public void lessonsButtonClicked()
     {
+        foreach (Button btn in navbarButtons)
+        {
+            btn.interactable = false;
+            StartCoroutine(EnableButtonAfterDelay(btn, ButtonReactivateDelay));
+        }
         SwapTrackToLessonsScreen();
         GameManager.instance.ChangeScene(3);
     }
@@ -557,6 +628,11 @@ public class HomeManager : MonoBehaviour
 
     public void rankButtonClicked()
     {
+        foreach (Button btn in navbarButtons)
+        {
+            btn.interactable = false;
+            StartCoroutine(EnableButtonAfterDelay(btn, ButtonReactivateDelay));
+        }
         SwapTrackToRankScreen();
         GameManager.instance.ChangeScene(7);
     }
@@ -568,6 +644,11 @@ public class HomeManager : MonoBehaviour
 
     public void profileButtonClicked()
     {
+        foreach (Button btn in navbarButtons)
+        {
+            btn.interactable = false;
+            StartCoroutine(EnableButtonAfterDelay(btn, ButtonReactivateDelay));
+        }
         SwapTrackToProfileScreen();
         GameManager.instance.ChangeScene(8);
     }
@@ -579,6 +660,11 @@ public class HomeManager : MonoBehaviour
 
     public void shopButtonClicked()
     {
+        foreach (Button btn in navbarButtons)
+        {
+            btn.interactable = false;
+            StartCoroutine(EnableButtonAfterDelay(btn, ButtonReactivateDelay));
+        }
         SwapTrackToShopScreen();
         GameManager.instance.ChangeScene(9);
     }
@@ -590,6 +676,11 @@ public class HomeManager : MonoBehaviour
 
     public void PlaySoloBtnClicked()
     {
+        foreach (Button btn in navbarButtons)
+        {
+            btn.interactable = false;
+            StartCoroutine(EnableButtonAfterDelay(btn, ButtonReactivateDelay));
+        }
         SwapTrackToStageSelection();
         GameManager.instance.ChangeScene(10);
     }
@@ -599,11 +690,9 @@ public class HomeManager : MonoBehaviour
         AudioManager.instance.SwapTrack(StageSelectionTrack);
     }
 
-
-    public void SignOut()
+    IEnumerator EnableButtonAfterDelay(Button button, float seconds)
     {
-        FirebaseAuth.DefaultInstance.SignOut();
-        AudioManager.instance.SwapTrack(LoginScreenTrack);
-        GameManager.instance.ChangeScene(0);
+        yield return new WaitForSeconds(seconds);
+        button.interactable = true;
     }
 }

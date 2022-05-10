@@ -45,7 +45,14 @@ public class LoginUITrigger : MonoBehaviour
     }
     public void ClosePopupVersion()
     {
+        StartCoroutine(ClosingPopupVersion());
+    }
+
+    private IEnumerator ClosingPopupVersion()
+    {
         popUpVersion.GetComponent<Animator>().SetBool("isOpen", false);
+        yield return new WaitForSeconds(0.4f);
+        popUpVersion.SetActive(false);
     }
 
     public void OpenForgotPassPopup()

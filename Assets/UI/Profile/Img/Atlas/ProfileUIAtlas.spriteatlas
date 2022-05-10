@@ -60,6 +60,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 4ce0f9f3b97cdbb498c461192eff4c8f, type: 3}
   - {fileID: 21300000, guid: 1cdf42c48b314de45bca81cfb3ef14cc, type: 3}
   - {fileID: 21300000, guid: 87c0f0153d291924a8b2a9b617aebe14, type: 3}
+  - {fileID: 21300000, guid: 5784db264be3416419b89a9e117fcb24, type: 3}
   - {fileID: 21300000, guid: d6689176f94ca604e862ccfe66ad9a94, type: 3}
   - {fileID: 21300000, guid: af94847616f35fa4b80f263d37e90b28, type: 3}
   - {fileID: 21300000, guid: 71765ed6f20635f48bd98b5f6d66e101, type: 3}
@@ -94,6 +95,7 @@ SpriteAtlas:
   - LevelAchievement_5
   - LevelAchievement_10
   - LevelAchievement_1
+  - logoutBtn
   - twinkle
   - LPAchievement_3
   - AchievementBtn-05

@@ -3,7 +3,16 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - MageNorm
+  - 1HandedNorm
+  - WolfmanBoss
+  - SkeletonBoss
+  - Demon1
+  - Demon2
+  - Demon3
+  - Demon4
+  - DemonBoss
   layers:
   - Default
   - TransparentFX

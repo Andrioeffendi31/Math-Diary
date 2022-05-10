@@ -50,6 +50,7 @@ SpriteAtlas:
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
   - {fileID: 21300000, guid: 24785f50e509287428bc8d7687aa5990, type: 3}
+  - {fileID: 21300000, guid: 2f2ec281b1b14a24d820cbd8795feeb4, type: 3}
   - {fileID: 21300000, guid: b892e9f1adccbf8429da9944cb7765d3, type: 3}
   - {fileID: 21300000, guid: 8d13d4d3fc984244588e572a2f1fc842, type: 3}
   - {fileID: 21300000, guid: 248d581466e66e24caf932418d0186c2, type: 3}
@@ -58,6 +59,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 33cddf15e3cf97941ad0c646930a5c3b, type: 3}
   - {fileID: 21300000, guid: 0c6f7345e9835ad4eb6b659d768affd8, type: 3}
   - {fileID: 21300000, guid: 331d6cf5a0937de428db5a4a67464729, type: 3}
+  - {fileID: 21300000, guid: d04e4fd613fb1e84c8adf086fed62928, type: 3}
   - {fileID: 21300000, guid: c48bdfb76c046e446b9ecf885fb8ce75, type: 3}
   - {fileID: 21300000, guid: 4f323a689b00f1141861493b39c9bd3f, type: 3}
   - {fileID: 21300000, guid: bc6bf8e85f4d699449efb7ad6fff0955, type: 3}
@@ -73,6 +75,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: dffdc4bf49ed1b64bba9c5efc23acbc3, type: 3}
   m_PackedSpriteNamesToIndex:
   - UserPhoto
+  - SmallBtnBlue
   - HP_bar_BG
   - AnswerBox
   - NormalAttackBtn
@@ -81,6 +84,7 @@ SpriteAtlas:
   - EnemyHealthBarBorder
   - UltimateBtnIcon
   - QuestionBox
+  - SmallBtnRed
   - EnemyHealthBarMask
   - UltimateBtn
   - HP_bar_fill

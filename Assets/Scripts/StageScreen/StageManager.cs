@@ -50,6 +50,8 @@ public class StageManager : MonoBehaviour
     private TMP_Text Unit3Section1Desc;
     [SerializeField]
     private TMP_Text Unit3Section2Desc;
+    [SerializeField]
+    private List<Button> Buttons;
     [Space(5)]
 
     [Header("Audio")]
@@ -57,6 +59,8 @@ public class StageManager : MonoBehaviour
     private AudioClip HomeScreenTrack;
     [SerializeField]
     private AudioClip SleepScreenTrack;
+    [SerializeField]
+    private AudioClip BattleScreenTrack;
 
     private StageManager instance;
     private string totalLP;
@@ -64,6 +68,7 @@ public class StageManager : MonoBehaviour
     private string totalSilver;
     public static string selectedStage;
 
+    private float ButtonReactivateDelay = 1.4f;
 
     private void Awake()
     {
@@ -191,6 +196,11 @@ public class StageManager : MonoBehaviour
 
     public void closeButtonClicked()
     {
+        foreach (Button btn in Buttons)
+        {
+            btn.interactable = false;
+            StartCoroutine(EnableButtonAfterDelay(btn, ButtonReactivateDelay));
+        }
         SwapTrackToHome();
         GameManager.instance.ChangeScene(2);
     }
@@ -202,6 +212,11 @@ public class StageManager : MonoBehaviour
 
     public void Unit1_Section1_Clicked()
     {
+        foreach (Button btn in Buttons)
+        {
+            btn.interactable = false;
+            StartCoroutine(EnableButtonAfterDelay(btn, ButtonReactivateDelay));
+        }
         selectedStage = "unit1_section1";
         SwapTrackToSleep();
         GameManager.instance.ChangeScene(11);
@@ -209,7 +224,60 @@ public class StageManager : MonoBehaviour
 
     public void Unit1_Section2_Clicked()
     {
+        foreach (Button btn in Buttons)
+        {
+            btn.interactable = false;
+            StartCoroutine(EnableButtonAfterDelay(btn, ButtonReactivateDelay));
+        }
         selectedStage = "unit1_section2";
+        SwapTrackToSleep();
+        GameManager.instance.ChangeScene(11);
+    }
+
+    public void Unit2_Section1_Clicked()
+    {
+        foreach (Button btn in Buttons)
+        {
+            btn.interactable = false;
+            StartCoroutine(EnableButtonAfterDelay(btn, ButtonReactivateDelay));
+        }
+        selectedStage = "unit2_section1";
+        SwapTrackToSleep();
+        GameManager.instance.ChangeScene(11);
+    }
+
+    public void Unit2_Section2_Clicked()
+    {
+        foreach (Button btn in Buttons)
+        {
+            btn.interactable = false;
+            StartCoroutine(EnableButtonAfterDelay(btn, ButtonReactivateDelay));
+        }
+        selectedStage = "unit2_section2";
+        SwapTrackToSleep();
+        GameManager.instance.ChangeScene(11);
+    }
+
+    public void Unit3_Section1_Clicked()
+    {
+        foreach (Button btn in Buttons)
+        {
+            btn.interactable = false;
+            StartCoroutine(EnableButtonAfterDelay(btn, ButtonReactivateDelay));
+        }
+        selectedStage = "unit3_section1";
+        SwapTrackToSleep();
+        GameManager.instance.ChangeScene(11);
+    }
+
+    public void Unit3_Section2_Clicked()
+    {
+        foreach (Button btn in Buttons)
+        {
+            btn.interactable = false;
+            StartCoroutine(EnableButtonAfterDelay(btn, ButtonReactivateDelay));
+        }
+        selectedStage = "unit3_section2";
         SwapTrackToSleep();
         GameManager.instance.ChangeScene(11);
     }
@@ -217,5 +285,16 @@ public class StageManager : MonoBehaviour
     private void SwapTrackToSleep()
     {
         AudioManager.instance.SwapTrack(SleepScreenTrack);
+    }
+
+    private void SwapTrackToBattle()
+    {
+        AudioManager.instance.SwapTrack(BattleScreenTrack);
+    }
+
+    IEnumerator EnableButtonAfterDelay(Button button, float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        button.interactable = true;
     }
 }

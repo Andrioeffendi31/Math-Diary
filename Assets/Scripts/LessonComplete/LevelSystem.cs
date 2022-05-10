@@ -178,11 +178,38 @@ public class LevelSystem : MonoBehaviour
         if (RecentMatchKey != null)
         {
             var pushRecentMatchTask = DBreference.Child("matches").Child(user.UserId).Child(RecentMatchKey).Child("total_HP").SetValueAsync(BattleManager.totalHP);
+            var overallScore = 0;
+
+            if (StageManager.selectedStage == "unit1_section1")
+            {
+                overallScore = (BattleManager.totalCorrectAns * 5) + (BattleManager.totalHP * 2);
+            }
+            else if (StageManager.selectedStage == "unit1_section2")
+            {
+                overallScore = (BattleManager.totalCorrectAns * 5) + (BattleManager.totalHP * 2);
+            }
+            else if (StageManager.selectedStage == "unit2_section1")
+            {
+                overallScore = (BattleManager.totalCorrectAns * 5) + (BattleManager.totalHP * 2);
+            }
+            else if (StageManager.selectedStage == "unit2_section2")
+            {
+                overallScore = (BattleManager.totalCorrectAns * 10) + (BattleManager.totalHP * 2);
+            }
+            else if (StageManager.selectedStage == "unit3_section1")
+            {
+                overallScore = (BattleManager.totalCorrectAns * 5) + (BattleManager.totalHP * 2);
+            }
+            else if (StageManager.selectedStage == "unit3_section2")
+            {
+                overallScore = (BattleManager.totalCorrectAns * 15) + (BattleManager.totalHP * 2);
+            }
+
             pushRecentMatchTask = DBreference.Child("matches").Child(user.UserId).Child(RecentMatchKey).Child("totalCorrectAns").SetValueAsync(BattleManager.totalCorrectAns);
             pushRecentMatchTask = DBreference.Child("matches").Child(user.UserId).Child(RecentMatchKey).Child("totalWrongAns").SetValueAsync(BattleManager.totalWrongAns);
             pushRecentMatchTask = DBreference.Child("matches").Child(user.UserId).Child(RecentMatchKey).Child("Accuracy").SetValueAsync((int)Accuracy);
-            pushRecentMatchTask = DBreference.Child("matches").Child(user.UserId).Child(RecentMatchKey).Child("overallScore").SetValueAsync((BattleManager.totalCorrectAns * 20) + (BattleManager.totalHP * 2));
-            pushRecentMatchTask = DBreference.Child("users").Child(user.UserId).Child("total_lp").SetValueAsync(totalLP + ((BattleManager.totalCorrectAns * 20) + (BattleManager.totalHP * 2)));
+            pushRecentMatchTask = DBreference.Child("matches").Child(user.UserId).Child(RecentMatchKey).Child("overallScore").SetValueAsync(overallScore);
+            pushRecentMatchTask = DBreference.Child("users").Child(user.UserId).Child("total_lp").SetValueAsync(totalLP + overallScore);
 
             yield return new WaitUntil(() => pushRecentMatchTask.IsCompleted);
 
@@ -205,8 +232,36 @@ public class LevelSystem : MonoBehaviour
         if (BattleManager.isWin == true)
         {
             GoldPopup.gameObject.SetActive(true);
-            StartCoroutine(AddGold(200));
-            StartCoroutine(AddExp(150));
+            if (StageManager.selectedStage == "unit1_section1")
+            {
+                StartCoroutine(AddGold(200));
+                StartCoroutine(AddExp(150));
+            }
+            else if (StageManager.selectedStage == "unit1_section2")
+            {
+                StartCoroutine(AddGold(200));
+                StartCoroutine(AddExp(150));
+            }
+            else if (StageManager.selectedStage == "unit2_section1")
+            {
+                StartCoroutine(AddGold(200));
+                StartCoroutine(AddExp(150));
+            }
+            else if (StageManager.selectedStage == "unit2_section2")
+            {
+                StartCoroutine(AddGold(400));
+                StartCoroutine(AddExp(250));
+            }
+            else if (StageManager.selectedStage == "unit3_section1")
+            {
+                StartCoroutine(AddGold(200));
+                StartCoroutine(AddExp(150));
+            }
+            else if (StageManager.selectedStage == "unit3_section2")
+            {
+                StartCoroutine(AddGold(500));
+                StartCoroutine(AddExp(400));
+            }
             StartCoroutine(PushClearMatch());
         }
         else
@@ -289,7 +344,7 @@ public class LevelSystem : MonoBehaviour
             {
                 currentLV++;
                 var addLevelTask = DBreference.Child("users").Child(user.UserId).Child("level").SetValueAsync(currentLV);
-                addLevelTask = DBreference.Child("users").Child(user.UserId).Child("xp_to_next_level").SetValueAsync(XPToNextLV * 1.6f);
+                addLevelTask = DBreference.Child("users").Child(user.UserId).Child("xp_to_next_level").SetValueAsync((int)(XPToNextLV * 1.6f));
                 if (addLevelTask.Exception != null)
                 {
                     Debug.LogError(addLevelTask.Exception.Message);
@@ -298,7 +353,7 @@ public class LevelSystem : MonoBehaviour
                 {
                     currentLVText.text = "Lv. " + currentLV;
                     i = 0;
-                    LVSlider.maxValue = XPToNextLV * 1.6f;
+                    LVSlider.maxValue = (int)(XPToNextLV * 1.6f);
                     totalEXPtoAdd -= XPToNextLV;
                     LevelUpVFX.SetActive(true);
 
@@ -371,34 +426,56 @@ public class LevelSystem : MonoBehaviour
                     {
                         achievementImage.sprite = achievementSprite[0];
                         openAchievementPopup();
+                        StartCoroutine(pushAchievementMail("Reached Lv 10", 400));
                     }
                     else if (_level == 20)
                     {
                         achievementImage.sprite = achievementSprite[1];
                         openAchievementPopup();
+                        StartCoroutine(pushAchievementMail("Reached Lv 20", 800));
                     }
                     else if (_level == 40)
                     {
                         achievementImage.sprite = achievementSprite[2];
                         openAchievementPopup();
+                        StartCoroutine(pushAchievementMail("Reached Lv 40", 1200));
                     }
                     else if (_level == 60)
                     {
                         achievementImage.sprite = achievementSprite[3];
                         openAchievementPopup();
+                        StartCoroutine(pushAchievementMail("Reached Lv 60", 1500));
                     }
                     else if (_level == 80)
                     {
                         achievementImage.sprite = achievementSprite[4];
                         openAchievementPopup();
+                        StartCoroutine(pushAchievementMail("Reached Lv 80", 3000));
                     }
                     else if (_level == 100)
                     {
                         achievementImage.sprite = achievementSprite[5];
                         openAchievementPopup();
+                        StartCoroutine(pushAchievementMail("Reached Lv 100", 5000));
                     }
                 }
             }
+        }
+    }
+
+    private IEnumerator pushAchievementMail(string achievementName, int rewardAmount)
+    {
+        var MailKey = DBreference.Child("mails").Child(user.UserId).Push().Key;
+        var MailTask = DBreference.Child("mails").Child(user.UserId).Child(MailKey).Child("Title").SetValueAsync(achievementName);
+        MailTask = DBreference.Child("mails").Child(user.UserId).Child(MailKey).Child("Desc").SetValueAsync("Congratulations!, you have " + achievementName + ". Keep improving your math skills! This is a reward for your achievements.");
+        MailTask = DBreference.Child("mails").Child(user.UserId).Child(MailKey).Child("Date").SetValueAsync(DateTime.Now.ToString());
+        MailTask = DBreference.Child("mails").Child(user.UserId).Child(MailKey).Child("Reward").SetValueAsync(rewardAmount);
+        MailTask = DBreference.Child("mails").Child(user.UserId).Child(MailKey).Child("Read").SetValueAsync(0);
+
+        yield return new WaitUntil(() => MailTask.IsCompleted);
+        if (MailTask.Exception != null)
+        {
+            Debug.LogError(MailTask.Exception.Message);
         }
     }
 

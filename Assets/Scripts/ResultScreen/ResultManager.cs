@@ -34,6 +34,8 @@ public class ResultManager : MonoBehaviour
     private TMP_Text radialValueText;
     [SerializeField]
     private Slider accuracySlider;
+    [SerializeField]
+    private List<Button> Buttons;
     [Space(5)]
 
     [Header("Audio")]
@@ -47,6 +49,8 @@ public class ResultManager : MonoBehaviour
     private int totalWrong;
     private float totalAccuracy;
     private int totalHP;
+
+    private float ButtonReactivateDelay = 1.4f;
 
     private void Start()
     {
@@ -109,11 +113,36 @@ public class ResultManager : MonoBehaviour
                         }
                         else
                         {
+                            var maxOverallScore = 0;
+                            if (StageManager.selectedStage == "unit1_section1")
+                            {
+                                maxOverallScore = ((totalCorrect + totalWrong) * 5) + (100 * 2);
+                            }
+                            else if (StageManager.selectedStage == "unit1_section2")
+                            {
+                                maxOverallScore = ((totalCorrect + totalWrong) * 5) + (100 * 2);
+                            }
+                            else if (StageManager.selectedStage == "unit2_section1")
+                            {
+                                maxOverallScore = ((totalCorrect + totalWrong) * 5) + (100 * 2);
+                            }
+                            else if (StageManager.selectedStage == "unit2_section2")
+                            {
+                                maxOverallScore = ((totalCorrect + totalWrong) * 10) + (100 * 2);
+                            }
+                            else if (StageManager.selectedStage == "unit3_section1")
+                            {
+                                maxOverallScore = ((totalCorrect + totalWrong) * 5) + (100 * 2);
+                            }
+                            else if (StageManager.selectedStage == "unit3_section2")
+                            {
+                                maxOverallScore = ((totalCorrect + totalWrong) * 15) + (100 * 2);
+                            }
                             totalHP = Convert.ToInt32(GetTotalHPTask.Result.Value);
                             overallScoreText.text = overallScore.ToString() + " LP";
                             totalCorrectText.text = totalCorrect.ToString();
                             totalWrongText.text = totalWrong.ToString();
-                            StartCoroutine(LoadOverallScore(overallScore, (((totalCorrect + totalWrong) * 20) + (100 * 2))));
+                            StartCoroutine(LoadOverallScore(overallScore, maxOverallScore));
                             StartCoroutine(LoadTotalAccuracy(totalAccuracy, 100));
                         }
 
@@ -151,6 +180,11 @@ public class ResultManager : MonoBehaviour
 
     public void homeButtonClicked()
     {
+        foreach (Button btn in Buttons)
+        {
+            btn.interactable = false;
+            StartCoroutine(EnableButtonAfterDelay(btn, ButtonReactivateDelay));
+        }
         SwapTrackToHome();
         GameManager.instance.ChangeScene(2);
     }
@@ -162,13 +196,42 @@ public class ResultManager : MonoBehaviour
 
     public void Unit1_Section1_Clicked()
     {
-        StageManager.selectedStage = "unit1_section1";
-        SwapTrackToSleep();
-        GameManager.instance.ChangeScene(13);
+        foreach (Button btn in Buttons)
+        {
+            btn.interactable = false;
+            StartCoroutine(EnableButtonAfterDelay(btn, ButtonReactivateDelay));
+        }
+        SwapTrackToBattle();
+        if (StageManager.selectedStage == "unit1_section1" || StageManager.selectedStage == "unit1_section2")
+        {
+            GameManager.instance.ChangeScene(13);
+        }
+        else if (StageManager.selectedStage == "unit2_section1")
+        {
+            GameManager.instance.ChangeScene(17);
+        }
+        else if (StageManager.selectedStage == "unit2_section2")
+        {
+            GameManager.instance.ChangeScene(18);
+        }
+        else if (StageManager.selectedStage == "unit3_section1")
+        {
+            GameManager.instance.ChangeScene(19);
+        }
+        else if (StageManager.selectedStage == "unit3_section2")
+        {
+            GameManager.instance.ChangeScene(20);
+        }
     }
 
-    private void SwapTrackToSleep()
+    private void SwapTrackToBattle()
     {
         AudioManager.instance.SwapTrack(BattleScreenTrack);
+    }
+
+    IEnumerator EnableButtonAfterDelay(Button button, float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        button.interactable = true;
     }
 }

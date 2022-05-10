@@ -9,6 +9,7 @@ using Firebase.Database;
 using Firebase.Auth;
 using Firebase.Storage;
 using TMPro;
+using Google;
 
 public class ProfileManager : MonoBehaviour
 {
@@ -58,6 +59,8 @@ public class ProfileManager : MonoBehaviour
     private TMP_Text averageScoreText;
     [SerializeField]
     private TMP_Text averageAccuracyText;
+    [SerializeField]
+    private List<Button> navbarButtons;
     [Space(5)]
 
     [Header("Achievement Icon")]
@@ -141,6 +144,8 @@ public class ProfileManager : MonoBehaviour
     private int highestScore;
     private float averageScore;
     private float averageAccuracy;
+
+    private float ButtonReactivateDelay = 1.4f;
 
     private void Awake()
     {
@@ -302,28 +307,38 @@ public class ProfileManager : MonoBehaviour
                 matcheslist.Add(new Tuple<int, int>(overallScore, accuracy));
             }
             matcheslist.Reverse();
-            foreach (var item in matcheslist)
-            {
-                Debug.Log("overallScore : " + item.Item1);
-                Debug.Log("accuracy : " + item.Item2);
-            }
-            highestScore = matcheslist[0].Item1;
 
-            foreach (var item in matcheslist)
+            if (matcheslist.Count > 0)
             {
-                averageScore += item.Item1;
-            }
-            averageScore /= matcheslist.Count;
+                foreach (var item in matcheslist)
+                {
+                    Debug.Log("overallScore : " + item.Item1);
+                    Debug.Log("accuracy : " + item.Item2);
+                }
+                highestScore = matcheslist[0].Item1;
 
-            foreach (var item in matcheslist)
+                foreach (var item in matcheslist)
+                {
+                    averageScore += item.Item1;
+                }
+                averageScore /= matcheslist.Count;
+
+                foreach (var item in matcheslist)
+                {
+                    averageAccuracy += item.Item2;
+                }
+                averageAccuracy /= matcheslist.Count;
+
+                highestSocreText.text = highestScore.ToString();
+                averageScoreText.text = Math.Round(averageScore, 1).ToString();
+                averageAccuracyText.text = Math.Round(averageAccuracy, 1).ToString() + "%";
+            }
+            else
             {
-                averageAccuracy += item.Item2;
+                highestSocreText.text = "0";
+                averageScoreText.text = "0.0";
+                averageAccuracyText.text = "0%";
             }
-            averageAccuracy /= matcheslist.Count;
-
-            highestSocreText.text = highestScore.ToString();
-            averageScoreText.text = Math.Round(averageScore, 1).ToString();
-            averageAccuracyText.text = Math.Round(averageAccuracy, 1).ToString() + "%";
         }
     }
 
@@ -675,6 +690,11 @@ public class ProfileManager : MonoBehaviour
 
     public void homeButtonClicked()
     {
+        foreach (Button btn in navbarButtons)
+        {
+            btn.interactable = false;
+            StartCoroutine(EnableButtonAfterDelay(btn, ButtonReactivateDelay));
+        }
         SwapTrackToHome();
         GameManager.instance.ChangeScene(2);
     }
@@ -685,6 +705,11 @@ public class ProfileManager : MonoBehaviour
     }
     public void lessonsButtonClicked()
     {
+        foreach (Button btn in navbarButtons)
+        {
+            btn.interactable = false;
+            StartCoroutine(EnableButtonAfterDelay(btn, ButtonReactivateDelay));
+        }
         SwapTrackToLessonsScreen();
         GameManager.instance.ChangeScene(3);
     }
@@ -696,6 +721,11 @@ public class ProfileManager : MonoBehaviour
 
     public void rankButtonClicked()
     {
+        foreach (Button btn in navbarButtons)
+        {
+            btn.interactable = false;
+            StartCoroutine(EnableButtonAfterDelay(btn, ButtonReactivateDelay));
+        }
         SwapTrackToRankScreen();
         GameManager.instance.ChangeScene(7);
     }
@@ -707,6 +737,11 @@ public class ProfileManager : MonoBehaviour
 
     public void shopButtonClicked()
     {
+        foreach (Button btn in navbarButtons)
+        {
+            btn.interactable = false;
+            StartCoroutine(EnableButtonAfterDelay(btn, ButtonReactivateDelay));
+        }
         SwapTrackToShopScreen();
         GameManager.instance.ChangeScene(9);
     }
@@ -716,9 +751,16 @@ public class ProfileManager : MonoBehaviour
         AudioManager.instance.SwapTrack(ShopScreenTrack);
     }
 
+    IEnumerator EnableButtonAfterDelay(Button button, float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        button.interactable = true;
+    }
+
     public void SignOut()
     {
         FirebaseAuth.DefaultInstance.SignOut();
+        GoogleSignIn.DefaultInstance.SignOut();
         AudioManager.instance.SwapTrack(LoginScreenTrack);
         GameManager.instance.ChangeScene(0);
     }

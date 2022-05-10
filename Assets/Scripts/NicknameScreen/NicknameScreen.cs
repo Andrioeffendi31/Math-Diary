@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Firebase;
 using Firebase.Database;
 using Firebase.Auth;
 using Firebase.Storage;
 using TMPro;
+using System;
 
 public class NicknameScreen : MonoBehaviour
 {
@@ -21,6 +23,8 @@ public class NicknameScreen : MonoBehaviour
     private TMP_Text nicknameOutput;
     [SerializeField]
     private TMP_InputField nicknameInput;
+    [SerializeField]
+    private Button setNicknameButton;
     [Space(5f)]
 
     [Header("Audio")]
@@ -30,7 +34,7 @@ public class NicknameScreen : MonoBehaviour
     private NicknameScreen instance;
     private string photoURL;
 
-
+    private float ButtonReactivateDelay = 2.4f;
 
     private void Awake()
     {
@@ -48,10 +52,12 @@ public class NicknameScreen : MonoBehaviour
 
     public void SetNickname()
     {
+        setNicknameButton.interactable = false;
+        StartCoroutine(EnableButtonAfterDelay(setNicknameButton, ButtonReactivateDelay));
         user = FirebaseAuth.DefaultInstance.CurrentUser;
         DBreference = FirebaseDatabase.GetInstance("https://mathdiary-d169a-default-rtdb.asia-southeast1.firebasedatabase.app/").RootReference;
         storage = FirebaseStorage.DefaultInstance;
-        storageRef = storage.GetReferenceFromUrl("gs://mathdiary-d169a.appspot.com/avatar/KumaThePlatoCommon.png");
+        storageRef = storage.GetReferenceFromUrl("gs://mathdiary-d169a.appspot.com/avatar/KumaThePlatoCommon.jpg");
         StartCoroutine(SetNickname(nicknameInput.text));
     }
 
@@ -175,6 +181,7 @@ public class NicknameScreen : MonoBehaviour
                             else
                             {
                                 nicknameOutput.text = "Nickname Set!";
+                                var MailKey = DBreference.Child("mails").Child(user.UserId).Push().Key;
 
                                 var InitializeUserData = DBreference.Child("users").Child(user.UserId).Child("total_lp").SetValueAsync(0);
                                 InitializeUserData = DBreference.Child("users").Child(user.UserId).Child("level").SetValueAsync(1);
@@ -184,6 +191,11 @@ public class NicknameScreen : MonoBehaviour
                                 InitializeUserData = DBreference.Child("users").Child(user.UserId).Child("total_gold").SetValueAsync(0);
                                 InitializeUserData = DBreference.Child("users").Child(user.UserId).Child("total_silver").SetValueAsync(0);
                                 InitializeUserData = DBreference.Child("avatars").Child(user.UserId).Push().SetValueAsync("KumaThePlatoCommon");
+                                InitializeUserData = DBreference.Child("mails").Child(user.UserId).Child(MailKey).Child("Title").SetValueAsync("Welcome Reward");
+                                InitializeUserData = DBreference.Child("mails").Child(user.UserId).Child(MailKey).Child("Desc").SetValueAsync("Hello, thank you for downloading our application. Hopefully this application can be useful in learning mathematics.");
+                                InitializeUserData = DBreference.Child("mails").Child(user.UserId).Child(MailKey).Child("Date").SetValueAsync(DateTime.Now.ToString());
+                                InitializeUserData = DBreference.Child("mails").Child(user.UserId).Child(MailKey).Child("Reward").SetValueAsync(2000);
+                                InitializeUserData = DBreference.Child("mails").Child(user.UserId).Child(MailKey).Child("Read").SetValueAsync(0);
 
                                 yield return new WaitUntil(predicate: () => InitializeUserData.IsCompleted);
 
@@ -255,5 +267,11 @@ public class NicknameScreen : MonoBehaviour
                 Debug.Log("Profile Picture Updated!");
             }
         }
+    }
+
+    IEnumerator EnableButtonAfterDelay(Button button, float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        button.interactable = true;
     }
 }

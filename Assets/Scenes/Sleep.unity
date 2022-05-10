@@ -6665,6 +6665,7 @@ MonoBehaviour:
   Transition3: {fileID: 757479969}
   DialogueBox: {fileID: 671139981}
   dialogueBoxAnim: {fileID: 671139985}
+  BattleScreenTrack: {fileID: 8300000, guid: 3ba4b8213f607d542b603f421f3778d0, type: 3}
 --- !u!1 &1574439515
 GameObject:
   m_ObjectHideFlags: 0
